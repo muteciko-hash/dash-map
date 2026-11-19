@@ -53,11 +53,11 @@ button{font:inherit;color:inherit;background:none;border:none;cursor:pointer}
 .nav-btn:active{transform:scale(.92)}
 .nav-btn.on{border-color:rgba(var(--acc),.65);background:rgba(var(--acc),.16);color:var(--red);box-shadow:0 0 12px rgba(var(--acc),.3)}
 
-.date-wrap{position:absolute;left:var(--px);top:0;height:100%;display:flex;align-items:center;gap:clamp(8px,calc(1.6*var(--vh)),14px)}
+.date-wrap{position:absolute;left:var(--px);top:0;height:100%;display:flex;align-items:center;gap:clamp(8px,calc(1.6*var(--vh)),14px);color:var(--clk,var(--tx))}
 .date-wrap b{font-size:clamp(32px,calc(7.8*var(--vh)),58px);font-weight:800;letter-spacing:-.05em;line-height:1}
 .date-r{display:flex;flex-direction:column;gap:clamp(3px,calc(.7*var(--vh)),6px)}
 .date-r span{font-size:clamp(7.5px,calc(1.4*var(--vh)),10.5px);font-weight:600;letter-spacing:.2em;text-transform:uppercase;white-space:nowrap}
-.date-r u{display:block;height:1px;background:rgba(245,245,247,.75)}
+.date-r u{display:block;height:1px;background:currentColor;opacity:.75}
 .clock{position:absolute;right:var(--px);top:0;height:100%;display:flex;align-items:center;font-size:clamp(32px,calc(7.8*var(--vh)),58px);font-weight:700;letter-spacing:-.04em;line-height:1;font-variant-numeric:tabular-nums;color:var(--clk,var(--tx));padding-left:18px;cursor:pointer;animation:breathe 5s ease-in-out infinite}
 @keyframes breathe{0%,100%{text-shadow:0 0 6px rgba(var(--acc),.16),0 0 16px rgba(var(--acc),.08)}50%{text-shadow:0 0 12px rgba(var(--acc),.55),0 0 30px rgba(var(--acc),.28)}}
 @keyframes pulse{50%{opacity:.35;transform:scale(.8)}}
@@ -90,15 +90,9 @@ button{font:inherit;color:inherit;background:none;border:none;cursor:pointer}
 .road-badge{font-size:clamp(8px,calc(1.3*var(--vh)),10px);font-weight:600;letter-spacing:.16em;color:var(--tx3);text-transform:uppercase}
 .road-status{max-width:calc(24*var(--vw));line-height:1.5;font-size:clamp(7px,calc(1.1*var(--vh)),8.5px);font-weight:600;letter-spacing:.14em;color:rgba(245,245,247,.28);text-transform:uppercase}
 
-/* HIZ GÖSTERGESİ (kalan km kutusuyla sağdan dikey hizalı, yön/metre ile aynı stil ve tema rengi) */
-.spd-box{position:absolute;right:calc(4*var(--vw) - 2ch);bottom:4px;
-  display:inline-flex;align-items:center;padding:4px 10px;border-radius:10px;
-  background:rgba(0,0,0,.58);pointer-events:none;z-index:4}
-.spd-cur{font-size:clamp(13px,calc(2.4*var(--vh)),18px);font-weight:700;letter-spacing:.04em;
-  color:var(--red);text-shadow:0 0 8px rgba(var(--acc),.4);font-variant-numeric:tabular-nums;white-space:nowrap}
 .zoom-hit{pointer-events:auto;padding:14px 22px 8px 8px;margin:-14px -22px -8px -8px;cursor:pointer;display:block}
 
-/* SOL ÜST YÖNLENDİRME (2 harf sola kaydırıldı: sadece ok + metre) */
+/* SOL ÜST YÖNLENDİRME (sadece ok + metre) */
 .nav-hud{position:absolute;left:calc(4*var(--vw) - 2ch);top:calc(4.5*var(--vh) + 6px);
   display:none;align-items:center;gap:clamp(6px,calc(1*var(--vw)),10px);
   padding:4px 10px 4px 6px;border-radius:10px;background:rgba(0,0,0,.58);
@@ -109,14 +103,6 @@ button{font:inherit;color:inherit;background:none;border:none;cursor:pointer}
   filter:drop-shadow(0 0 6px rgba(var(--acc),.45))}
 .nav-ico svg{width:100%;height:100%}
 .nav-dist{font-size:clamp(13px,calc(2.4*var(--vh)),18px);font-weight:700;letter-spacing:.04em;color:var(--tx);font-variant-numeric:tabular-nums;white-space:nowrap}
-
-/* SAĞ ÜST KALAN MESAFE (yön/metre ile yatay, hız ile dikey hizalı) */
-.nav-rem{position:absolute;right:calc(4*var(--vw) - 2ch);top:calc(4.5*var(--vh) + 6px);
-  display:none;align-items:center;padding:4px 10px;border-radius:10px;background:rgba(0,0,0,.58);
-  font-size:clamp(13px,calc(2.4*var(--vh)),18px);font-weight:700;letter-spacing:.04em;
-  color:var(--tx);font-variant-numeric:tabular-nums;white-space:nowrap;
-  z-index:6;pointer-events:auto;cursor:pointer;opacity:0;transition:opacity .3s}
-.nav-rem.on{display:inline-flex;opacity:1}
 
 /* PUSULA — sol blokla aynı dikey ortada */
 .right{display:flex;flex-direction:column;align-items:flex-end;justify-content:center;align-self:center;gap:clamp(6px,calc(1.2*var(--vh)),10px);min-width:0}
@@ -201,7 +187,7 @@ input[type=file]{display:none}
 .fx-cv{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:1}
 .road-wrap,.right,.left,.hourly,.date-wrap,.clock{transition:opacity 1.2s}
 .screen.rest .road-wrap,.screen.rest .right,.screen.rest .left,.screen.rest .hourly,.screen.rest .date-wrap,.screen.rest .clock{opacity:0;pointer-events:none}
-.screen.rest .zoom-hit,.screen.rest .nav-hud,.screen.rest .nav-rem{pointer-events:none}
+.screen.rest .zoom-hit,.screen.rest .nav-hud{pointer-events:none}
 #restBox{position:absolute;left:0;right:0;top:46%;transform:translateY(-50%);display:flex;flex-direction:column;align-items:center;gap:clamp(6px,calc(2*var(--vh)),16px);opacity:0;pointer-events:none;transition:opacity 1.2s;z-index:3;cursor:pointer}
 .screen.rest #restBox{opacity:1;pointer-events:auto}
 .rest-clock{font-size:clamp(70px,calc(34*var(--vh)),240px);font-weight:300;letter-spacing:-.04em;line-height:1;font-variant-numeric:tabular-nums;color:var(--clk,var(--tx));animation:breathe 6s ease-in-out infinite}
@@ -269,15 +255,11 @@ input[type=file]{display:none}
         <span class="nav-dist" id="navTurnDist">--</span>
       </div>
 
-      <!-- SAĞ ÜST KALAN MESAFE -->
-      <div class="nav-rem" id="navRemHud" onclick="openNav()">--</div>
-
       <div class="ahead-chip" id="aheadChip"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#ffb000" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 22 20H2z"/><path d="M12 10v4.5M12 17.5v.1"/></svg><span id="aheadText"></span></div>
       <div class="road-hud">
         <div class="zoom-hit" onclick="handleZoomTap(event)"><span class="road-badge" id="roadZoomLbl">300 M</span></div>
         <span class="road-status" id="roadStatus"></span>
       </div>
-      <div class="spd-box"><div class="spd-cur" id="spdCur">-- km/sa</div></div>
     </section>
 
     <section class="right">
@@ -505,15 +487,12 @@ let liveRaw = [], liveIndex = null;
 const loadedCells = new Map(), loadedLive = new Map();
 let targetLat = null, targetLon = null, renderLat = null, renderLon = null;
 let fixLat = null, fixLon = null, fixSpeed = 0, fixHead = 0, fixTime = 0;
-let curSpeedKmh = null, targetHeading = 0, renderHeading = 0, roadAnimRaf = null, lastStepTs = 0;
+let targetHeading = 0, renderHeading = 0, roadAnimRaf = null, lastStepTs = 0;
 
 function roadSize(){
   roadCv.width = Math.max(1, Math.round(roadCv.clientWidth * DPR));
   roadCv.height = Math.max(1, Math.round(roadCv.clientHeight * DPR));
   drawRoadMap();
-}
-function updateSpeedUI(){
-  $('spdCur').textContent = (curSpeedKmh !== null && isFinite(curSpeedKmh)) ? `${curSpeedKmh} km/sa` : '-- km/sa';
 }
 
 /* --- Akıcı hareket: GPS saniyede 1 kez gelir, aradaki kareleri hız ve yönden tahmin ederek 60 fps çizer --- */
@@ -981,7 +960,6 @@ function playTurnChime(){
 function syncNavUiState(){
   const active = !!navRoute;
   $('navHud').classList.toggle('on', active);
-  $('navRemHud').classList.toggle('on', active);
   $('navOpenBtn').classList.toggle('on', active);
   $('navCancelModalBtn').style.display = active ? 'inline-block' : 'none';
 }
@@ -1009,11 +987,9 @@ async function startRouteTo(destName, destLat, destLon, isReroute=false){
   if (!isReroute){
     saveRecentDest({ name: destName, lat: destLat, lon: destLon });
     $('navHud').classList.add('on');
-    $('navRemHud').classList.add('on');
     $('navOpenBtn').classList.add('on');
     $('navIcon').innerHTML = TURN_SVGS.straight;
     $('navTurnDist').textContent = '…';
-    $('navRemHud').textContent = '…';
   }
 
   const coordsParam = `${targetLon.toFixed(6)},${targetLat.toFixed(6)};${destLon.toFixed(6)},${destLat.toFixed(6)}`;
@@ -1078,7 +1054,6 @@ function updateNavProgress(ox, oy){
     lastRerouteAt = Date.now();
     navRerouting = true;
     $('navTurnDist').textContent = '…';
-    $('navRemHud').textContent = '…';
     startRouteTo(navRoute.destName, navRoute.destLat, navRoute.destLon, true).finally(() => { navRerouting = false; });
     return { snap, nextStep: null };
   }
@@ -1094,7 +1069,6 @@ function updateNavProgress(ox, oy){
   if (remDist < 28){
     $('navIcon').innerHTML = TURN_SVGS.arrive;
     $('navTurnDist').textContent = 'VARIŞ';
-    $('navRemHud').textContent = '0 M';
     if (lastChimeStep !== 9999){ lastChimeStep = 9999; playTurnChime(); }
     return { snap, nextStep: step };
   }
@@ -1106,7 +1080,6 @@ function updateNavProgress(ox, oy){
 
   $('navIcon').innerHTML = TURN_SVGS[step.ico] || TURN_SVGS.straight;
   $('navTurnDist').textContent = fmtNavDist(distToTurn);
-  $('navRemHud').textContent = fmtNavDist(remDist);
 
   return { snap, nextStep: step };
 }
@@ -1954,15 +1927,11 @@ function updateGeo(c){
   if (c.altitude!=null && isFinite(c.altitude)) { gpsAlt = c.altitude; $('altVal').textContent = Math.round(gpsAlt); }
   else if (elev!=null) $('altVal').textContent = Math.round(elev);
 
-  if (c.speed != null && isFinite(c.speed) && c.speed >= 0){
-    curSpeedKmh = c.speed < 0.6 ? 0 : Math.round(c.speed * 3.6);
-  }
   if (c.speed > 1.5 && c.heading != null && isFinite(c.heading)){
     gpsHeadTime = Date.now();
     setHeading(c.heading);
     targetHeading = c.heading;
   }
-  updateSpeedUI();
   fixSpeed = (c.speed != null && isFinite(c.speed) && c.speed > 0) ? c.speed : 0;
   fixHead = (c.speed > 1.5 && c.heading != null && isFinite(c.heading)) ? c.heading : targetHeading;
   fixLat = c.latitude; fixLon = c.longitude; fixTime = Date.now();
@@ -2275,7 +2244,7 @@ $('cityInput').addEventListener('input',e=>{
         const o=document.createElement('div'); o.className='opt'; o.textContent=`${it.name}${it.admin1?', '+it.admin1:''} (${it.country||''})`;
         o.onclick=()=>{
           manual=true;
-          targetLat=renderLat=it.latitude; targetLon=renderLon=it.longitude; curSpeedKmh=null; fixSpeed=0; updateSpeedUI();
+          targetLat=renderLat=it.latitude; targetLon=renderLon=it.longitude; fixSpeed=0;
           fetchWeather(it.latitude,it.longitude,`${it.name}, ${it.country||''}`);
           fetchRoadNetwork(it.latitude,it.longitude,true);
           drawRoadMap();
@@ -2326,7 +2295,7 @@ document.querySelector('.date-wrap').addEventListener('click',()=>{
 addEventListener('resize',applyLayout); addEventListener('orientationchange',()=>setTimeout(applyLayout,150));
 /* Ekrana (kontroller dışında) dokununca radyo kanalı değişir — yoldan gözünü ayırmadan */
 document.addEventListener('click', e => {
-  if (e.target.closest('.loc,.nav-btn,.nav-hud,.nav-rem,.date-wrap,.clock,.compass,.zoom-hit,.modal,.dock,.toast,.wx-mini,.cond,#restBox,#fxPrev')) return;
+  if (e.target.closest('.loc,.nav-btn,.nav-hud,.date-wrap,.clock,.compass,.zoom-hit,.modal,.dock,.toast,.wx-mini,.cond,#restBox,#fxPrev')) return;
   nextSong();
   toast(tracks[ti].artist);
 });
