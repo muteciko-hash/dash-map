@@ -138,14 +138,14 @@ button{font:inherit;color:inherit;background:none;border:none;cursor:pointer}
 .h-p{font-size:clamp(9px,calc(1.4*var(--vh)),11px);color:#7fb7ff;font-weight:600;display:flex;align-items:center;gap:3px}
 .h-p.lo{opacity:.4}.h-p.hi{color:var(--red);text-shadow:0 0 8px var(--red-glow)}
 
-/* RADYO — şarkı yazısı aşağıda, ekolayzır alçak */
+/* RADYO — şarkı yazısı aşağıda, ekolayzır alçak, saat/tarih ile aynı tema renginde */
 .dock{width:100%;display:flex;align-items:center;justify-content:center;flex-shrink:0;height:clamp(54px,calc(11*var(--vh)),72px)}
 .player{width:100%;height:100%;background:#000;display:flex;flex-direction:column;justify-content:flex-end;gap:clamp(1px,calc(.4*var(--vh)),4px);padding:0 var(--px) 0 var(--px)}
 .p-top{display:flex;align-items:center;justify-content:space-between;gap:14px;min-width:0}
-.p-meta{flex:1;min-width:0;font-size:clamp(12px,calc(2*var(--vh)),14.5px);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.p-song{color:#f2f2f4;font-weight:600;letter-spacing:.01em}
-.p-sep{color:rgba(242,242,244,.5);font-weight:400;margin:0 7px}
-.p-chan{color:rgba(242,242,244,.7);font-weight:500;font-size:.82em;letter-spacing:.14em;text-transform:uppercase}
+.p-meta{flex:1;min-width:0;font-size:clamp(12px,calc(2*var(--vh)),14.5px);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:var(--clk,var(--tx))}
+.p-song{color:var(--clk,var(--tx));font-weight:600;letter-spacing:.01em}
+.p-sep{color:var(--clk,var(--tx));opacity:.5;font-weight:400;margin:0 7px}
+.p-chan{color:var(--clk,var(--tx));opacity:.75;font-weight:500;font-size:.82em;letter-spacing:.14em;text-transform:uppercase}
 .p-ctrls{display:flex;align-items:center;gap:clamp(10px,calc(1.6*var(--vw)),18px);flex-shrink:0}
 .play{width:clamp(24px,calc(4.2*var(--vh)),32px);height:clamp(24px,calc(4.2*var(--vh)),32px);color:var(--play,#d97724);display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:transform .12s,filter .15s}
 .play:active{transform:scale(.9);filter:brightness(1.2)}
@@ -855,7 +855,7 @@ async function clearOffline(){
 }
 
 /* ---------- ADRES ARAMA & MİNİMAL ROTA YÖNLENDİRME (OSRM + PHOTON) ---------- */
-let navRoute = null; // { destName, destLat, destLon, coords, localPts, cum, totalLen, steps }
+let navRoute = null;
 let lastChimeStep = -1, lastRerouteAt = 0, navRerouting = false, navAudioCtx = null;
 let navSearchTimer = null, navRecent = [];
 try{ navRecent = JSON.parse(localStorage.getItem('nav_recent') || '[]') || []; }catch{ navRecent = []; }
@@ -1051,7 +1051,6 @@ function updateNavProgress(ox, oy){
   if (!navRoute || !navRoute.localPts.length) return null;
   const snap = snapToPolyline(ox, oy, navRoute.localPts, navRoute.cum);
 
-  // Rotadan sapma kontrolü (> 65 m uzaklaşıldıysa otomatik yeniden rota)
   if (!manual && !navRerouting && snap.offDist > 65 && Date.now() - lastRerouteAt > 12000){
     lastRerouteAt = Date.now();
     navRerouting = true;
@@ -1235,11 +1234,9 @@ function drawRoadMap(){
   }
 
   if (navRoute && navRoute.localPts.length >= 2){
-    // AKTİF NAVİGASYON ROTASI (tema renginde parlayan çizgi)
     const rPts = navRoute.localPts;
     const sn = navState && navState.snap ? navState.snap : snapToPolyline(ox, oy, rPts, navRoute.cum);
 
-    // Geçilen kısım (sönük)
     if (sn.seg > 0 || sn.t > 0.01){
       rctx.beginPath();
       rctx.moveTo(X(rPts[0]), Y(rPts[0]));
@@ -1250,7 +1247,6 @@ function drawRoadMap(){
       rctx.stroke();
     }
 
-    // Önümüzdeki aktif rota halesi
     rctx.beginPath();
     rctx.moveTo(X(sn.pt), Y(sn.pt));
     for (let i = sn.seg + 1; i < rPts.length; i++) rctx.lineTo(X(rPts[i]), Y(rPts[i]));
@@ -1258,7 +1254,6 @@ function drawRoadMap(){
     rctx.lineWidth = 11 * dp;
     rctx.stroke();
 
-    // Önümüzdeki aktif rota çekirdeği
     rctx.beginPath();
     rctx.moveTo(X(sn.pt), Y(sn.pt));
     for (let i = sn.seg + 1; i < rPts.length; i++) rctx.lineTo(X(rPts[i]), Y(rPts[i]));
@@ -1266,7 +1261,6 @@ function drawRoadMap(){
     rctx.lineWidth = 3.4 * dp;
     rctx.stroke();
 
-    // Sıradaki dönüş noktası vurgusu
     if (navState && navState.nextStep && navState.nextStep.xy){
       const nx = X(navState.nextStep.xy), ny = Y(navState.nextStep.xy);
       rctx.fillStyle = `rgba(${TH.acc},0.35)`;
@@ -1275,7 +1269,6 @@ function drawRoadMap(){
       rctx.beginPath(); rctx.arc(nx, ny, 3.5 * dp, 0, Math.PI * 2); rctx.fill();
     }
 
-    // Hedef noktası halkası
     const endPt = rPts[rPts.length - 1];
     const ex = X(endPt), ey = Y(endPt);
     rctx.strokeStyle = `rgb(${TH.core})`;
@@ -1284,7 +1277,6 @@ function drawRoadMap(){
     rctx.fillStyle = `rgb(${TH.acc})`;
     rctx.beginPath(); rctx.arc(ex, ey, 4 * dp, 0, Math.PI * 2); rctx.fill();
   } else if (matched){
-    // Serbest sürüş modu: üzerinde gidilen yol boyunca parlama
     const pts = matched.m, seg = bestSeg;
     const a = pts[seg], b = pts[seg+1];
     const dx = b[0] - a[0], dy = b[1] - a[1], L2 = dx*dx + dy*dy;
@@ -1386,7 +1378,7 @@ const cloneTheme = th => { const o = {}; THEME_KEYS.forEach(k => { o[k] = th[k].
 let themeKey = 'red';
 try{ const sv = localStorage.getItem('theme'); if (sv && THEME_ORDER.includes(sv)) themeKey = sv; }catch{}
 let curTheme = cloneTheme(THEMES.red), tweenRaf = 0;
-const TH = { acc: '229,72,77', core: '255,112,96', arrow: '240,138,69' };
+const TH = { acc: '229,72,77', core: '255,112,96', arrow: '240,138,69', clk: '245,245,247' };
 
 function applyThemeColors(c){
   const r = a => a.map(v => Math.round(v)).join(',');
@@ -1394,7 +1386,8 @@ function applyThemeColors(c){
   root.setProperty('--acc', r(c.acc));
   root.setProperty('--play', 'rgb(' + r(c.play) + ')');
   root.setProperty('--clk', 'rgb(' + r(c.clk) + ')');
-  TH.acc = r(c.acc); TH.core = r(c.core); TH.arrow = r(c.arrow);
+  TH.acc = r(c.acc); TH.core = r(c.core); TH.arrow = r(c.arrow); TH.clk = r(c.clk);
+  if (typeof eqKick === 'function') eqKick();
   if (!roadAnimRaf) drawRoadMap();
 }
 function resolveTheme(){
@@ -2197,7 +2190,7 @@ $('mp3Input').addEventListener('change',e=>{
   select(0,true);
 });
 
-/* ---------- EKOLAYZIR (alçak) ---------- */
+/* ---------- EKOLAYZIR (alçak, saat/tarih tema renginde) ---------- */
 const eq=$('eq'), ectx=eq.getContext('2d'), NB=96, bars=new Float32Array(NB); let eqRaf=null;
 const EQ_MAX = 0.62;
 function eqSize(){ const dp=window.devicePixelRatio||1; eq.width=Math.max(1,eq.clientWidth*dp); eq.height=Math.max(1,eq.clientHeight*dp); }
@@ -2222,7 +2215,7 @@ function eqFrame(ts){
     mx=Math.max(mx,bars[i]);
     const bh=Math.round(Math.max(2*dp, bars[i]*(h - 2*dp)));
     const x=Math.round(i*step)+bw/2;
-    ectx.strokeStyle=bars[i]<0.08 ? 'rgba(242,242,244,.38)' : 'rgba(242,242,244,.88)';
+    ectx.strokeStyle=bars[i]<0.08 ? `rgba(${TH.clk},.38)` : `rgba(${TH.clk},.88)`;
     ectx.beginPath();
     ectx.moveTo(x, h);
     ectx.lineTo(x, h - bh);
