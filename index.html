@@ -64,7 +64,7 @@ button{font:inherit;color:inherit;background:none;border:none;cursor:pointer}
 @keyframes breathe{0%,100%{text-shadow:0 0 6px rgba(var(--acc),.16),0 0 16px rgba(var(--acc),.08)}50%{text-shadow:0 0 12px rgba(var(--acc),.55),0 0 30px rgba(var(--acc),.28)}}
 @keyframes pulse{50%{opacity:.35;transform:scale(.8)}}
 
-/* ORTA — Sol: Hava + Navigasyon | Orta: Harita (tam ortada) | Sağ: Pusula */
+/* ORTA — Sol: Hava | Orta: Harita (tam ortada) | Sağ: Pusula */
 .middle{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.6fr) minmax(0,1fr);grid-template-rows:minmax(0,1fr);align-items:center;gap:clamp(10px,calc(1.8*var(--vw)),26px);flex:1;min-height:0;padding:clamp(4px,calc(1*var(--vh)),10px) var(--px)}
 .left{display:flex;flex-direction:column;justify-content:center;align-items:flex-start;gap:clamp(4px,calc(1*var(--vh)),10px);min-width:0}
 
@@ -79,25 +79,11 @@ button{font:inherit;color:inherit;background:none;border:none;cursor:pointer}
 
 .cond{font-size:clamp(10px,calc(1.8*var(--vh)),14px);font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:rgba(245,245,247,.9)}
 .metrics{display:grid;grid-template-columns:auto auto;gap:clamp(4px,calc(1*var(--vh)),9px) clamp(14px,calc(2*var(--vw)),26px);margin-top:clamp(2px,calc(.8*var(--vh)),8px);justify-content:start}
-
-/* NAVİGASYON METRİKLERİ + SAĞINDA YÖN & KALAN METRE */
-.nav-row{display:flex;align-items:center;gap:clamp(8px,calc(1.2*var(--vw)),14px);margin-top:clamp(2px,calc(.5*var(--vh)),5px);max-width:100%}
-.nav-metrics{display:flex;flex-direction:column;gap:clamp(4px,calc(1*var(--vh)),9px);min-width:0}
+.nav-metrics{display:flex;flex-direction:column;gap:clamp(4px,calc(1*var(--vh)),9px);margin-top:clamp(2px,calc(.5*var(--vh)),5px)}
 .nav-metrics.on .metric b{color:var(--clk,var(--tx))}
 .metric{display:flex;flex-direction:column;gap:2px}
-.metric span{display:inline-flex;align-items:center;gap:4px;font-size:clamp(7px,calc(1.15*var(--vh)),9px);color:var(--tx3);font-weight:600;letter-spacing:.16em;text-transform:uppercase;white-space:nowrap}
+.metric span{display:inline-flex;align-items:center;gap:4px;font-size:clamp(7px,calc(1.15*var(--vh)),9px);color:var(--tx3);font-weight:600;letter-spacing:.16em;text-transform:uppercase}
 .metric b{font-size:clamp(12px,calc(1.9*var(--vh)),15px);font-weight:600;letter-spacing:.02em;font-variant-numeric:tabular-nums;white-space:nowrap}
-
-.nav-hud{display:none;align-items:center;gap:clamp(5px,calc(.75*var(--vw)),9px);
-  padding-left:clamp(8px,calc(1.2*var(--vw)),14px);border-left:1px solid rgba(255,255,255,.12);
-  cursor:pointer;flex-shrink:0;transition:opacity .25s,transform .15s}
-.nav-hud:active{transform:scale(.95)}
-.nav-hud.on{display:inline-flex}
-.nav-ico{width:clamp(21px,calc(3.7*var(--vh)),28px);height:clamp(21px,calc(3.7*var(--vh)),28px);
-  color:var(--red);display:flex;align-items:center;justify-content:center;flex-shrink:0;
-  filter:drop-shadow(0 0 6px rgba(var(--acc),.45))}
-.nav-ico svg{width:100%;height:100%}
-.nav-dist{font-size:clamp(14px,calc(2.35*var(--vh)),18.5px);font-weight:700;letter-spacing:.02em;color:var(--clk,var(--tx));font-variant-numeric:tabular-nums;white-space:nowrap;line-height:1.1}
 
 /* HARİTA — canvas mutlak konumlu: grid yüksekliğini bozmaz */
 .road-wrap{position:relative;z-index:1;width:auto;justify-self:stretch;align-self:stretch;min-height:0;overflow:hidden;margin:calc(-4.5*var(--vh)) calc(-4*var(--vw)) 0;pointer-events:none}
@@ -109,7 +95,19 @@ button{font:inherit;color:inherit;background:none;border:none;cursor:pointer}
 .road-status{max-width:calc(24*var(--vw));line-height:1.5;font-size:clamp(7px,calc(1.1*var(--vh)),8.5px);font-weight:600;letter-spacing:.14em;color:rgba(245,245,247,.28);text-transform:uppercase}
 
 .zoom-hit{pointer-events:auto;padding:14px 22px 8px 8px;margin:-14px -22px -8px -8px;cursor:pointer;display:block}
-.veh-hit{position:absolute;left:50%;top:78%;transform:translate(-50%,-50%);width:clamp(48px,calc(10*var(--vh)),76px);height:clamp(66px,calc(14*var(--vh)),104px);pointer-events:auto;cursor:pointer;z-index:4}
+
+/* ÜST ORTA YÖNLENDİRME (ok + metre, hap biçiminde) */
+.nav-hud{position:absolute;left:50%;top:calc(4.5*var(--vh) + 6px);transform:translateX(-50%);
+  display:none;align-items:center;gap:clamp(6px,calc(1*var(--vw)),10px);
+  padding:5px 15px 5px 10px;border-radius:999px;background:rgba(0,0,0,.6);border:1px solid rgba(var(--acc),.35);
+  backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
+  z-index:6;pointer-events:auto;cursor:pointer;opacity:0;transition:opacity .3s}
+.nav-hud.on{display:inline-flex;opacity:1}
+.nav-ico{width:clamp(20px,calc(4*var(--vh)),28px);height:clamp(20px,calc(4*var(--vh)),28px);
+  color:var(--red);display:flex;align-items:center;justify-content:center;flex-shrink:0;
+  filter:drop-shadow(0 0 6px rgba(var(--acc),.45))}
+.nav-ico svg{width:100%;height:100%}
+.nav-dist{font-size:clamp(13px,calc(2.4*var(--vh)),18px);font-weight:700;letter-spacing:.04em;color:var(--tx);font-variant-numeric:tabular-nums;white-space:nowrap}
 
 /* PUSULA — sol blokla aynı dikey ortada */
 .right{display:flex;flex-direction:column;align-items:flex-end;justify-content:center;align-self:center;gap:clamp(6px,calc(1.2*var(--vh)),10px);min-width:0}
@@ -182,7 +180,7 @@ input[type=file]{display:none}
 .fx-cv{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:1}
 .road-wrap,.right,.left,.hourly,.date-wrap,.clock{transition:opacity 1.2s}
 .screen.rest .road-wrap,.screen.rest .right,.screen.rest .left,.screen.rest .hourly,.screen.rest .date-wrap,.screen.rest .clock{opacity:0;pointer-events:none}
-.screen.rest .zoom-hit,.screen.rest .veh-hit,.screen.rest .nav-hud{pointer-events:none}
+.screen.rest .zoom-hit,.screen.rest .nav-hud{pointer-events:none}
 #restBox{position:absolute;left:0;right:0;top:46%;transform:translateY(-50%);display:flex;flex-direction:column;align-items:center;gap:clamp(6px,calc(2*var(--vh)),16px);opacity:0;pointer-events:none;transition:opacity 1.2s;z-index:3;cursor:pointer}
 .screen.rest #restBox{opacity:1;pointer-events:auto}
 .rest-clock{font-size:clamp(70px,calc(34*var(--vh)),240px);font-weight:300;letter-spacing:-.04em;line-height:1;font-variant-numeric:tabular-nums;color:var(--clk,var(--tx));animation:breathe 6s ease-in-out infinite}
@@ -194,6 +192,7 @@ input[type=file]{display:none}
 .rest-wx span{font-size:clamp(9px,calc(1.8*var(--vh)),13px);font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--tx2)}
 .ahead-chip{position:absolute;left:50%;top:calc(4.5*var(--vh) + 8px);transform:translateX(-50%) translateY(-6px);display:flex;align-items:center;gap:7px;padding:5px 12px;border-radius:999px;background:rgba(0,0,0,.55);border:1px solid rgba(255,176,0,.55);color:#ffcf66;font-size:clamp(8px,calc(1.35*var(--vh)),10.5px);font-weight:600;letter-spacing:.14em;white-space:nowrap;opacity:0;transition:opacity .6s,transform .6s,top .4s;z-index:5;pointer-events:none}
 .ahead-chip.on{opacity:1;transform:translateX(-50%)}
+.road-wrap.navon .ahead-chip{top:calc(4.5*var(--vh) + 14px + clamp(28px,calc(6*var(--vh)),42px))}
 #dimLayer{position:fixed;inset:0;z-index:40;background:#000;opacity:0;pointer-events:none;transition:opacity 1.2s}
 </style>
 </head>
@@ -237,22 +236,21 @@ input[type=file]{display:none}
         <div class="metric"><span>Rüzgar</span><b id="windText">--</b></div>
         <div class="metric"><span>Nem</span><b id="humText">--</b></div>
       </div>
-      <div class="nav-row" id="navRow">
-        <div class="nav-metrics" id="navMetrics">
-          <div class="metric"><span><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-6-5.4-6-10a6 6 0 1 1 12 0c0 4.6-6 10-6 10z"/><circle cx="12" cy="11" r="2.2"/></svg> Kalan km</span><b id="remDist">--</b></div>
-          <div class="metric"><span><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 14"/></svg> Tahmini varış</span><b id="remEta">--</b></div>
-        </div>
-        <!-- YÖN VE KALAN METRE (Kalan km & Tahmini varışın hemen sağında) -->
-        <div class="nav-hud" id="navHud" onclick="openNav()">
-          <div class="nav-ico" id="navIcon"></div>
-          <span class="nav-dist" id="navTurnDist">--</span>
-        </div>
+      <div class="nav-metrics" id="navMetrics">
+        <div class="metric"><span><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-6-5.4-6-10a6 6 0 1 1 12 0c0 4.6-6 10-6 10z"/><circle cx="12" cy="11" r="2.2"/></svg> Kalan km</span><b id="remDist">--</b></div>
+        <div class="metric"><span><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 14"/></svg> Tahmini varış</span><b id="remEta">--</b></div>
       </div>
     </section>
 
     <section class="road-wrap" id="roadWrap">
       <canvas class="road-cv" id="roadCanvas"></canvas>
-      <div class="veh-hit" id="vehHit" onclick="toggleVehicleIcon(event)" aria-label="Araç ikonu değiştir"></div>
+
+      <!-- ÜST ORTA YÖNLENDİRME (ok + metre) -->
+      <div class="nav-hud" id="navHud" onclick="openNav()">
+        <div class="nav-ico" id="navIcon"></div>
+        <span class="nav-dist" id="navTurnDist">--</span>
+      </div>
+
       <div class="ahead-chip" id="aheadChip"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#ffb000" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 22 20H2z"/><path d="M12 10v4.5M12 17.5v.1"/></svg><span id="aheadText"></span></div>
       <div class="road-hud">
         <div class="zoom-hit" onclick="handleZoomTap(event)"><span class="road-badge" id="roadZoomLbl">300 M</span></div>
@@ -458,8 +456,6 @@ const ZOOM_STEPS = [
   { meters: 1500, label: '1.5 KM' }
 ];
 let zoomIdx = 1;
-let vehIconType = 'truck';
-try{ if (localStorage.getItem('veh_icon') === 'arrow') vehIconType = 'arrow'; }catch{}
 const M_LAT = 110540;
 const sleep = ms => new Promise(r => setTimeout(r, ms));
 const OVERPASS = [
@@ -534,14 +530,6 @@ function handleZoomTap(e){
   $('roadZoomLbl').textContent = ZOOM_STEPS[zoomIdx].label;
   drawRoadMap();
   toast('Görüş: ' + ZOOM_STEPS[zoomIdx].label);
-}
-
-function toggleVehicleIcon(e){
-  if (e) e.stopPropagation();
-  vehIconType = vehIconType === 'truck' ? 'arrow' : 'truck';
-  try{ localStorage.setItem('veh_icon', vehIconType); }catch{}
-  drawRoadMap();
-  toast(vehIconType === 'truck' ? 'İkon: Avrupa Tır' : 'İkon: Klasik Ok');
 }
 
 /* --- Telefon deposu (IndexedDB) --- */
@@ -875,7 +863,7 @@ const TURN_SVGS = {
   'arrive':       '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-6-5.4-6-10a6 6 0 1 1 12 0c0 4.6-6 10-6 10z"/><circle cx="12" cy="11" r="2.2"/></svg>'
 };
 
-// Yönlendirme alanı: sadece değişince DOM'a yazar
+// Yönlendirme hapı: sadece değişince DOM'a yazar (her karede yazmak akıcılığı düşürüyordu)
 function setNavHud(ico, txt){
   if (ico !== navHudIco){ navHudIco = ico; $('navIcon').innerHTML = TURN_SVGS[ico] || TURN_SVGS.straight; }
   if (txt !== navHudTxt){ navHudTxt = txt; $('navTurnDist').textContent = txt; }
@@ -922,6 +910,7 @@ function fmtEta(sec){
   const arr = new Date(Date.now() + mins * 60000);
   return `${durStr} · ${pad(arr.getHours())}:${pad(arr.getMinutes())}`;
 }
+// Çok noktalı rotada her karede tüm rotayı taramamak için aralık (from..to) verilebilir
 function snapToPolyline(px, py, pts, cum, from = 0, to = pts.length - 1){
   let bestDSq = Infinity, bestSeg = from, bestT = 0, bestX = pts[from][0], bestY = pts[from][1];
   for (let i = from; i < to; i++){
@@ -987,6 +976,7 @@ function syncNavUiState(){
   const active = !!navRoute;
   $('navHud').classList.toggle('on', active);
   $('navOpenBtn').classList.toggle('on', active);
+  $('roadWrap').classList.toggle('navon', active);
   $('navCancelModalBtn').style.display = active ? 'inline-block' : 'none';
   $('navMetrics').classList.toggle('on', active);
   if (!active){ setMetric('remDist', '--'); setMetric('remEta', '--'); }
@@ -1016,6 +1006,7 @@ async function startRouteTo(destName, destLat, destLon, isReroute=false){
     saveRecentDest({ name: destName, lat: destLat, lon: destLon });
     $('navHud').classList.add('on');
     $('navOpenBtn').classList.add('on');
+    $('roadWrap').classList.add('navon');
     $('navMetrics').classList.add('on');
     setNavHud('straight', '…');
     setMetric('remDist', '…'); setMetric('remEta', '…');
@@ -1082,6 +1073,7 @@ function updateNavProgress(ox, oy){
   if (!navRoute || !navRoute.localPts.length) return null;
   const pts = navRoute.localPts, cum = navRoute.cum;
 
+  // Önce son bilinen konumun çevresinde ara (hızlı), uzaksa tüm rotada ara
   let snap = null;
   if (navRoute.lastSeg != null){
     snap = snapToPolyline(ox, oy, pts, cum, Math.max(0, navRoute.lastSeg - 4), Math.min(pts.length - 1, navRoute.lastSeg + 80));
@@ -1090,6 +1082,7 @@ function updateNavProgress(ox, oy){
   if (!snap) snap = snapToPolyline(ox, oy, pts, cum);
   navRoute.lastSeg = snap.seg;
 
+  // Rotadan sapma kontrolü (> 65 m uzaklaşıldıysa otomatik yeniden rota)
   if (!manual && !navRerouting && snap.offDist > 65 && Date.now() - lastRerouteAt > 12000){
     lastRerouteAt = Date.now();
     navRerouting = true;
@@ -1208,6 +1201,7 @@ const STYLE = {
 const DRAW_ORDER = [8, 7, 6, 4, 3, 2, 1, 0];
 let fadeCache = { w: 0, h: 0, gx: null, gy: null };
 
+// Rotanın bir noktadan ileri/geri (dir = +1 / -1) kısa bir parçasını toplar (görüş alanı kadar)
 function collectRoute(pts, seg, p0, dir, maxLen){
   const P = [p0], D = [0];
   let len = 0, j = dir === 1 ? seg + 1 : seg;
@@ -1230,193 +1224,6 @@ function routePointAt(R, d){
   return null;
 }
 const mixRGB = (a, b, k) => `${Math.round(a[0] + (b[0] - a[0]) * k)},${Math.round(a[1] + (b[1] - a[1]) * k)},${Math.round(a[2] + (b[2] - a[2]) * k)}`;
-
-/* --- Temaya Uyumlu Kuşbakışı Avrupa Tipi Tır İkonu --- */
-function drawEuroTruck(ctx, tx, ty, dp){
-  ctx.save();
-  ctx.translate(tx, ty);
-  const s = dp;
-
-  // 1. Ön Far Işık Huzmeleri (uzun yumuşak koni + güçlü yakın çekirdek)
-  [-5.1 * s, 5.1 * s].forEach(lx => {
-    const outerG = ctx.createLinearGradient(lx, -27 * s, lx, -78 * s);
-    outerG.addColorStop(0, 'rgba(255, 248, 224, 0.36)');
-    outerG.addColorStop(0.45, 'rgba(255, 244, 210, 0.13)');
-    outerG.addColorStop(1, 'rgba(255, 244, 210, 0)');
-    ctx.fillStyle = outerG;
-    ctx.beginPath();
-    ctx.moveTo(lx - 1.5 * s, -27 * s);
-    ctx.lineTo(lx - 15 * s, -78 * s);
-    ctx.lineTo(lx + 15 * s, -78 * s);
-    ctx.lineTo(lx + 1.5 * s, -27 * s);
-    ctx.closePath();
-    ctx.fill();
-
-    const innerG = ctx.createLinearGradient(lx, -27 * s, lx, -50 * s);
-    innerG.addColorStop(0, 'rgba(255, 255, 245, 0.55)');
-    innerG.addColorStop(1, 'rgba(255, 255, 245, 0)');
-    ctx.fillStyle = innerG;
-    ctx.beginPath();
-    ctx.moveTo(lx - 1.1 * s, -27 * s);
-    ctx.lineTo(lx - 6.5 * s, -50 * s);
-    ctx.lineTo(lx + 6.5 * s, -50 * s);
-    ctx.lineTo(lx + 1.1 * s, -27 * s);
-    ctx.closePath();
-    ctx.fill();
-  });
-
-  // 2. Arka Stop Lambaları Kırmızı Yansıma Halesi
-  [-4.6 * s, 4.6 * s].forEach(rx => {
-    const rg = ctx.createRadialGradient(rx, 28.2 * s, 0.5 * s, rx, 29.5 * s, 12.5 * s);
-    rg.addColorStop(0, 'rgba(255, 28, 42, 0.62)');
-    rg.addColorStop(0.5, 'rgba(255, 20, 36, 0.22)');
-    rg.addColorStop(1, 'rgba(255, 20, 36, 0)');
-    ctx.fillStyle = rg;
-    ctx.beginPath();
-    ctx.arc(rx, 29.5 * s, 12.5 * s, 0, Math.PI * 2);
-    ctx.fill();
-  });
-
-  // 3. Zemin Gölgesi
-  ctx.save();
-  ctx.shadowColor = 'rgba(0, 0, 0, 0.85)';
-  ctx.shadowBlur = 7 * s;
-  ctx.shadowOffsetY = 2 * s;
-  ctx.fillStyle = 'rgba(0, 0, 0, 0.7)';
-  ctx.beginPath();
-  ctx.roundRect(-7.2 * s, -11.5 * s, 14.4 * s, 39 * s, 1.5 * s);
-  ctx.roundRect(-7.5 * s, -27.5 * s, 15 * s, 13.5 * s, 3 * s);
-  ctx.fill();
-  ctx.restore();
-
-  // 4. Dorse (Articulated Trailer: y = -11.5s .. +27.5s)
-  const trG = ctx.createLinearGradient(-7.2 * s, 0, 7.2 * s, 0);
-  trG.addColorStop(0, '#14161a');
-  trG.addColorStop(0.25, '#23262e');
-  trG.addColorStop(0.5, '#2b2f38');
-  trG.addColorStop(0.75, '#23262e');
-  trG.addColorStop(1, '#14161a');
-  ctx.fillStyle = trG;
-  ctx.strokeStyle = `rgba(${TH.core}, 0.68)`;
-  ctx.lineWidth = 1.15 * s;
-  ctx.beginPath();
-  ctx.roundRect(-7.2 * s, -11.5 * s, 14.4 * s, 39 * s, 1.4 * s);
-  ctx.fill();
-  ctx.stroke();
-
-  // Dorse ön soğutucu (frigo) ünitesi & tavan nervür çizgileri
-  ctx.fillStyle = 'rgba(10, 11, 14, 0.85)';
-  ctx.fillRect(-5.6 * s, -11.1 * s, 11.2 * s, 2.3 * s);
-  ctx.strokeStyle = `rgba(${TH.acc}, 0.45)`;
-  ctx.lineWidth = 0.7 * s;
-  ctx.strokeRect(-5.6 * s, -11.1 * s, 11.2 * s, 2.3 * s);
-
-  ctx.strokeStyle = 'rgba(255, 255, 255, 0.08)';
-  ctx.lineWidth = 0.7 * s;
-  [-3.2 * s, 0, 3.2 * s].forEach(lx => {
-    ctx.beginPath();
-    ctx.moveTo(lx, -7.8 * s);
-    ctx.lineTo(lx, 26.2 * s);
-    ctx.stroke();
-  });
-
-  // Dorse yan turuncu gabari LED'leri
-  ctx.fillStyle = '#ff9f1c';
-  [-2 * s, 13 * s].forEach(my => {
-    ctx.fillRect(-7.6 * s, my, 0.7 * s, 1.4 * s);
-    ctx.fillRect(6.9 * s, my, 0.7 * s, 1.4 * s);
-  });
-
-  // 5. Arka Tampon & Belirgin Kırmızı Stop Lambaları
-  ctx.fillStyle = '#0c0d10';
-  ctx.fillRect(-6.8 * s, 26.3 * s, 13.6 * s, 1.4 * s);
-
-  // Sol ve Sağ Kırmızı LED Stop Blokları
-  ctx.fillStyle = '#ff1a2b';
-  ctx.fillRect(-6.5 * s, 26.4 * s, 4.1 * s, 1.7 * s);
-  ctx.fillRect(2.4 * s, 26.4 * s, 4.1 * s, 1.7 * s);
-  // Stop lambası parlak çekirdeği
-  ctx.fillStyle = '#ff9aa2';
-  ctx.fillRect(-5.7 * s, 26.7 * s, 2.5 * s, 0.9 * s);
-  ctx.fillRect(3.2 * s, 26.7 * s, 2.5 * s, 0.9 * s);
-
-  // 6. Çekici–Dorse Bağlantı Şasisi (Beşinci Teker Boşluğu)
-  ctx.fillStyle = '#0e1013';
-  ctx.fillRect(-4.1 * s, -14.4 * s, 8.2 * s, 3.1 * s);
-  ctx.strokeStyle = `rgba(${TH.acc}, 0.55)`;
-  ctx.lineWidth = 0.8 * s;
-  ctx.beginPath();
-  ctx.moveTo(-1.8 * s, -14.1 * s); ctx.lineTo(-2.3 * s, -11.6 * s);
-  ctx.moveTo(1.8 * s, -14.1 * s); ctx.lineTo(2.3 * s, -11.6 * s);
-  ctx.stroke();
-
-  // 7. Avrupa Tipi Düz Burunlu Çekici Kabini (y = -27.5s .. -14.0s)
-  const cabG = ctx.createLinearGradient(-7.5 * s, -27.5 * s, 7.5 * s, -14.0 * s);
-  cabG.addColorStop(0, '#1e2128');
-  cabG.addColorStop(0.5, '#323642');
-  cabG.addColorStop(1, '#191b21');
-  ctx.fillStyle = cabG;
-  ctx.strokeStyle = `rgba(${TH.core}, 0.92)`;
-  ctx.lineWidth = 1.25 * s;
-  ctx.beginPath();
-  ctx.roundRect(-7.5 * s, -27.5 * s, 15 * s, 13.5 * s, [3.2 * s, 3.2 * s, 1.4 * s, 1.4 * s]);
-  ctx.fill();
-  ctx.stroke();
-
-  // Kabin tavan rüzgarlığı (aerodinamik spoiler çizgisi)
-  ctx.strokeStyle = `rgba(${TH.acc}, 0.65)`;
-  ctx.lineWidth = 0.9 * s;
-  ctx.beginPath();
-  ctx.moveTo(-5.8 * s, -17.2 * s);
-  ctx.quadraticCurveTo(0, -18.5 * s, 5.8 * s, -17.2 * s);
-  ctx.stroke();
-
-  // Panoramik Avrupa Ön Camı
-  ctx.fillStyle = '#07090d';
-  ctx.beginPath();
-  ctx.moveTo(-6.1 * s, -25.4 * s);
-  ctx.quadraticCurveTo(0, -26.5 * s, 6.1 * s, -25.4 * s);
-  ctx.lineTo(5.5 * s, -22.8 * s);
-  ctx.quadraticCurveTo(0, -23.6 * s, -5.5 * s, -22.8 * s);
-  ctx.closePath();
-  ctx.fill();
-
-  // Ön cam yansıma çizgisi
-  ctx.strokeStyle = 'rgba(255, 255, 255, 0.24)';
-  ctx.lineWidth = 0.75 * s;
-  ctx.beginPath();
-  ctx.moveTo(-4.6 * s, -24.7 * s);
-  ctx.quadraticCurveTo(0, -25.5 * s, 4.6 * s, -24.7 * s);
-  ctx.stroke();
-
-  // Avrupa Tipi İleri Uzanan Yan Aynalar
-  ctx.strokeStyle = `rgba(${TH.core}, 0.85)`;
-  ctx.lineWidth = 1.1 * s;
-  ctx.beginPath();
-  ctx.moveTo(-7.4 * s, -24.4 * s); ctx.lineTo(-9.5 * s, -25.5 * s); ctx.lineTo(-9.5 * s, -23.4 * s);
-  ctx.moveTo(7.4 * s, -24.4 * s); ctx.lineTo(9.5 * s, -25.5 * s); ctx.lineTo(9.5 * s, -23.4 * s);
-  ctx.stroke();
-
-  // Tavan Tepe / Gabari Nokta Işıkları (Tema Renginde)
-  ctx.fillStyle = `rgb(${TH.core})`;
-  [-2.6 * s, 0, 2.6 * s].forEach(dx => {
-    ctx.beginPath();
-    ctx.arc(dx, -26.4 * s, 0.55 * s, 0, Math.PI * 2);
-    ctx.fill();
-  });
-
-  // Ön LED Far Lensleri (Parlak Beyaz-Altın Çekirdek)
-  [-5.1 * s, 5.1 * s].forEach(lx => {
-    ctx.fillStyle = '#fff5cc';
-    ctx.beginPath();
-    ctx.roundRect(lx - 1.5 * s, -27.8 * s, 3 * s, 1.2 * s, 0.5 * s);
-    ctx.fill();
-    ctx.fillStyle = '#ffffff';
-    ctx.fillRect(lx - 0.9 * s, -27.7 * s, 1.8 * s, 0.7 * s);
-  });
-
-  ctx.restore();
-}
 
 function drawRoadMap(){
   const w = roadCv.width, h = roadCv.height;
@@ -1511,6 +1318,7 @@ function drawRoadMap(){
     }
     rctx.lineCap = 'round';
   };
+  // Akan ışık atımları: okun önünden ileri doğru süzülür
   const drawPulses = (Rt) => {
     const spacing = 90, lim = Math.min(Rt.len, range);
     for (let d = pulsePhase; d < lim; d += spacing){
@@ -1542,14 +1350,15 @@ function drawRoadMap(){
     const behind = collectRoute(rPts, sn.seg, sn.pt, -1, 80);
     const ns = navState && navState.nextStep && navState.nextStep.ico !== 'arrive' ? navState.nextStep : null;
     const dTurn = navState ? navState.distToTurn : 9999;
-    const boost = ns ? Math.max(0, Math.min(1, (220 - dTurn) / 120)) : 0;
+    const boost = ns ? Math.max(0, Math.min(1, (220 - dTurn) / 120)) : 0;   // dönüşe yaklaşınca çizgi parlar
 
     drawConnector(sn.pt, sn.offDist);
-    fadeStroke(behind, 80, 0.42, 0, 2.6, 7, 0.5, TH.coreA, TH.accA);
+    fadeStroke(behind, 80, 0.42, 0, 2.6, 7, 0.5, TH.coreA, TH.accA);        // arkada sönen iz
     fadeStroke(ahead, range, 1, 0.12, 3.4 * (1 + 0.25 * boost), 11 * (1 + 0.3 * boost), 0.28 * (1 + 0.4 * boost), TH.coreA, TH.farA);
     pulsePhase = (pulsePhase + dtD * (12 + fixSpeed * 0.7)) % 90;
     drawPulses(ahead);
 
+    // Sıradaki dönüş: nokta + yayılan halkalar (yaklaştıkça sıklaşır)
     if (ns && ns.xy){
       const nx = X(ns.xy), ny = Y(ns.xy);
       if (dTurn < 600){
@@ -1568,6 +1377,7 @@ function drawRoadMap(){
       rctx.beginPath(); rctx.arc(nx, ny, 3.5 * dp, 0, 6.2832); rctx.fill();
     }
 
+    // Hedef halkası
     const endPt = rPts[rPts.length - 1];
     const ex = X(endPt), ey = Y(endPt);
     if (Math.abs(ex) < w && Math.abs(ey) < h * 1.5){
@@ -1578,6 +1388,7 @@ function drawRoadMap(){
       rctx.beginPath(); rctx.arc(ex, ey, 4 * dp, 0, 6.2832); rctx.fill();
     }
   } else if (matched){
+    // Serbest sürüş: üzerinde gidilen yol boyunca parlama
     const pts = matched.m, seg = bestSeg;
     const a = pts[seg], b = pts[seg+1];
     const dx = b[0] - a[0], dy = b[1] - a[1], L2 = dx*dx + dy*dy;
@@ -1598,7 +1409,7 @@ function drawRoadMap(){
   }
   rctx.restore();
 
-  // Araç halesi
+  // Araç halesi: kenar maskesinden ÖNCE çizilir, böylece alt kenarda sert kesilmez
   const glow = rctx.createRadialGradient(tx, ty, 0, tx, ty, 80 * dp);
   glow.addColorStop(0, `rgba(${TH.acc},${(0.34 * br).toFixed(3)})`);
   glow.addColorStop(1, `rgba(${TH.acc},0)`);
@@ -1623,21 +1434,17 @@ function drawRoadMap(){
   rctx.restore();
   rctx.globalCompositeOperation = 'source-over';
 
-  if (vehIconType === 'truck'){
-    drawEuroTruck(rctx, tx, ty, dp);
-  } else {
-    rctx.save();
-    rctx.translate(tx, ty);
-    rctx.fillStyle = `rgb(${TH.arrow})`;
-    rctx.beginPath();
-    rctx.moveTo(0, -10 * dp);
-    rctx.lineTo(7.5 * dp, 7.5 * dp);
-    rctx.lineTo(0, 3.5 * dp);
-    rctx.lineTo(-7.5 * dp, 7.5 * dp);
-    rctx.closePath();
-    rctx.fill();
-    rctx.restore();
-  }
+  rctx.save();
+  rctx.translate(tx, ty);
+  rctx.fillStyle = `rgb(${TH.arrow})`;
+  rctx.beginPath();
+  rctx.moveTo(0, -10 * dp);
+  rctx.lineTo(7.5 * dp, 7.5 * dp);
+  rctx.lineTo(0, 3.5 * dp);
+  rctx.lineTo(-7.5 * dp, 7.5 * dp);
+  rctx.closePath();
+  rctx.fill();
+  rctx.restore();
 }
 
 /* ---------- RENK TEMALARI (saate dokun) ---------- */
@@ -1703,6 +1510,7 @@ $('clockT').addEventListener('click', () => {
 });
 setInterval(() => { if (themeKey === 'auto') setTheme('auto', false, false); }, 60000);
 setInterval(() => { if (!roadAnimRaf && renderLat !== null && !document.hidden && !restMode) drawRoadMap(); }, 200);
+// Rota açıkken ışık atımları akıcı kalsın (park halinde de ~15 kare/sn)
 setInterval(() => { if (navRoute && !roadAnimRaf && renderLat !== null && !document.hidden && !restMode) drawRoadMap(); }, 66);
 
 /* ---------- ARKA PLAN EFEKTLERİ: sadece hız çizgileri ve mola modu gökyüzü ---------- */
@@ -1839,6 +1647,7 @@ function fxFrame(ts){
   }
   fxRaf = requestAnimationFrame(fxFrame);
 }
+// Hava durumu ikonuna dokununca hız çizgileri ve mola gökyüzü açılır / kapanır
 $('art').addEventListener('click', () => {
   fxOn = !fxOn;
   try{ localStorage.setItem('fx', fxOn ? 'on' : 'off'); }catch{}
@@ -2368,7 +2177,7 @@ document.querySelector('.date-wrap').addEventListener('click',()=>{
 addEventListener('resize',applyLayout); addEventListener('orientationchange',()=>setTimeout(applyLayout,150));
 /* Ekrana (kontroller dışında) dokununca radyo kanalı değişir — yoldan gözünü ayırmadan */
 document.addEventListener('click', e => {
-  if (e.target.closest('.loc,.nav-btn,.nav-hud,.date-wrap,.clock,.compass,.zoom-hit,.veh-hit,.modal,.dock,.toast,.wx-mini,#restBox')) return;
+  if (e.target.closest('.loc,.nav-btn,.nav-hud,.date-wrap,.clock,.compass,.zoom-hit,.modal,.dock,.toast,.wx-mini,#restBox')) return;
   nextSong();
   toast(tracks[ti].artist);
 });
