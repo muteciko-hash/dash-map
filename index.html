@@ -64,7 +64,7 @@ button{font:inherit;color:inherit;background:none;border:none;cursor:pointer}
 @keyframes breathe{0%,100%{text-shadow:0 0 6px rgba(var(--acc),.16),0 0 16px rgba(var(--acc),.08)}50%{text-shadow:0 0 12px rgba(var(--acc),.55),0 0 30px rgba(var(--acc),.28)}}
 @keyframes pulse{50%{opacity:.35;transform:scale(.8)}}
 
-/* ORTA — Sol: Hava + Rota Bilgisi | Orta: Harita (tam ortada) | Sağ: Pusula */
+/* ORTA — Sol: Hava | Orta: Harita (tam ortada) | Sağ: Pusula */
 .middle{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.6fr) minmax(0,1fr);grid-template-rows:minmax(0,1fr);align-items:center;gap:clamp(10px,calc(1.8*var(--vw)),26px);flex:1;min-height:0;padding:clamp(4px,calc(1*var(--vh)),10px) var(--px)}
 .left{display:flex;flex-direction:column;justify-content:center;align-items:flex-start;gap:clamp(4px,calc(1*var(--vh)),10px);min-width:0}
 
@@ -96,10 +96,11 @@ button{font:inherit;color:inherit;background:none;border:none;cursor:pointer}
 
 .zoom-hit{pointer-events:auto;padding:14px 22px 8px 8px;margin:-14px -22px -8px -8px;cursor:pointer;display:block}
 
-/* SOL ÜST YÖNLENDİRME (sadece ok + metre) */
-.nav-hud{position:absolute;left:calc(4*var(--vw) - 2ch);top:calc(4.5*var(--vh) + 6px);
+/* ÜST ORTA YÖNLENDİRME (ok + metre, hap biçiminde) */
+.nav-hud{position:absolute;left:50%;top:calc(4.5*var(--vh) + 6px);transform:translateX(-50%);
   display:none;align-items:center;gap:clamp(6px,calc(1*var(--vw)),10px);
-  padding:4px 10px 4px 6px;border-radius:10px;background:rgba(0,0,0,.58);
+  padding:5px 15px 5px 10px;border-radius:999px;background:rgba(0,0,0,.6);border:1px solid rgba(var(--acc),.35);
+  backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
   z-index:6;pointer-events:auto;cursor:pointer;opacity:0;transition:opacity .3s}
 .nav-hud.on{display:inline-flex;opacity:1}
 .nav-ico{width:clamp(20px,calc(4*var(--vh)),28px);height:clamp(20px,calc(4*var(--vh)),28px);
@@ -140,7 +141,7 @@ button{font:inherit;color:inherit;background:none;border:none;cursor:pointer}
 .h-p{font-size:clamp(9px,calc(1.4*var(--vh)),11px);color:#7fb7ff;font-weight:600;display:flex;align-items:center;gap:3px}
 .h-p.lo{opacity:.4}.h-p.hi{color:var(--red);text-shadow:0 0 8px var(--red-glow)}
 
-/* RADYO — şarkı yazısı aşağıda, ekolayzır alçak, saat/tarih ile aynı tema renginde */
+/* RADYO — şarkı yazısı aşağıda, ekolayzır alçak */
 .dock{width:100%;display:flex;align-items:center;justify-content:center;flex-shrink:0;height:clamp(54px,calc(11*var(--vh)),72px)}
 .player{width:100%;height:100%;background:#000;display:flex;flex-direction:column;justify-content:flex-end;gap:clamp(1px,calc(.4*var(--vh)),4px);padding:0 var(--px) 0 var(--px)}
 .p-top{display:flex;align-items:center;justify-content:space-between;gap:14px;min-width:0}
@@ -155,7 +156,7 @@ button{font:inherit;color:inherit;background:none;border:none;cursor:pointer}
 .nxt{width:clamp(20px,calc(3.4*var(--vh)),26px);height:clamp(20px,calc(3.4*var(--vh)),26px);color:rgba(242,242,244,.65);display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:transform .12s,color .15s}
 .nxt:active{transform:scale(.9);color:#fff}
 .nxt svg{width:100%;height:100%}
-.eq{display:block;width:100%;height:clamp(14px,calc(3*var(--vh)),22px)}
+.eq{display:block;width:100%;height:clamp(16px,calc(3.4*var(--vh)),26px)}
 
 /* MODAL */
 .modal{position:fixed;inset:0;z-index:30;background:rgba(0,0,0,.8);backdrop-filter:blur(10px);display:none;align-items:center;justify-content:center;padding:16px}
@@ -176,18 +177,6 @@ input[type=file]{display:none}
 .toast{position:absolute;left:50%;top:calc(12*var(--vh));transform:translateX(-50%);background:rgba(255,255,255,.14);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
   padding:7px 16px;border-radius:999px;font-size:12px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;opacity:0;transition:opacity .3s;pointer-events:none;z-index:50}
 .toast.on{opacity:1}
-.cond{cursor:pointer;padding:8px 14px 8px 0;margin:-8px 0}
-.screen.preview>header,.screen.preview>main,.screen.preview>section,.screen.preview>footer,.screen.preview #restBox{opacity:0!important;pointer-events:none!important}
-#fxPrev{position:absolute;inset:0;z-index:20;display:none;flex-direction:column;justify-content:space-between;padding:max(env(safe-area-inset-top),clamp(8px,calc(1.8*var(--vh)),16px)) var(--px) clamp(10px,calc(2.4*var(--vh)),22px)}
-.screen.preview #fxPrev{display:flex}
-.fxp-top{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}
-.fxp-title{font-size:clamp(16px,calc(4.2*var(--vh)),30px);font-weight:700;letter-spacing:.04em}
-.fxp-desc{margin-top:4px;font-size:clamp(9px,calc(1.9*var(--vh)),13px);font-weight:500;letter-spacing:.16em;text-transform:uppercase;color:var(--tx2)}
-.fxp-x{flex:0 0 auto;width:clamp(34px,calc(8*var(--vh)),46px);height:clamp(34px,calc(8*var(--vh)),46px);border-radius:50%;border:1px solid rgba(255,255,255,.22);background:rgba(0,0,0,.45);display:flex;align-items:center;justify-content:center;color:var(--tx)}
-.fxp-bar{display:flex;gap:8px;overflow-x:auto;-webkit-overflow-scrolling:touch;padding:4px 0 2px;scrollbar-width:none}
-.fxp-bar::-webkit-scrollbar{display:none}
-.fxp-chip{flex:0 0 auto;padding:9px 15px;border-radius:999px;border:1px solid rgba(255,255,255,.2);background:rgba(0,0,0,.45);color:var(--tx2);font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;white-space:nowrap}
-.fxp-chip.on{border-color:var(--red);color:var(--red)}
 .fx-cv{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:1}
 .road-wrap,.right,.left,.hourly,.date-wrap,.clock{transition:opacity 1.2s}
 .screen.rest .road-wrap,.screen.rest .right,.screen.rest .left,.screen.rest .hourly,.screen.rest .date-wrap,.screen.rest .clock{opacity:0;pointer-events:none}
@@ -201,8 +190,9 @@ input[type=file]{display:none}
 .rest-ico svg{height:100%;width:auto;display:block;overflow:visible}
 .rest-wx b{font-size:clamp(22px,calc(5*var(--vh)),38px);font-weight:600;letter-spacing:-.02em}
 .rest-wx span{font-size:clamp(9px,calc(1.8*var(--vh)),13px);font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--tx2)}
-.ahead-chip{position:absolute;left:50%;top:calc(4.5*var(--vh) + 8px);transform:translateX(-50%) translateY(-6px);display:flex;align-items:center;gap:7px;padding:5px 12px;border-radius:999px;background:rgba(0,0,0,.55);border:1px solid rgba(255,176,0,.55);color:#ffcf66;font-size:clamp(8px,calc(1.35*var(--vh)),10.5px);font-weight:600;letter-spacing:.14em;white-space:nowrap;opacity:0;transition:opacity .6s,transform .6s;z-index:5;pointer-events:none}
+.ahead-chip{position:absolute;left:50%;top:calc(4.5*var(--vh) + 8px);transform:translateX(-50%) translateY(-6px);display:flex;align-items:center;gap:7px;padding:5px 12px;border-radius:999px;background:rgba(0,0,0,.55);border:1px solid rgba(255,176,0,.55);color:#ffcf66;font-size:clamp(8px,calc(1.35*var(--vh)),10.5px);font-weight:600;letter-spacing:.14em;white-space:nowrap;opacity:0;transition:opacity .6s,transform .6s,top .4s;z-index:5;pointer-events:none}
 .ahead-chip.on{opacity:1;transform:translateX(-50%)}
+.road-wrap.navon .ahead-chip{top:calc(4.5*var(--vh) + 14px + clamp(28px,calc(6*var(--vh)),42px))}
 #dimLayer{position:fixed;inset:0;z-index:40;background:#000;opacity:0;pointer-events:none;transition:opacity 1.2s}
 </style>
 </head>
@@ -255,7 +245,7 @@ input[type=file]{display:none}
     <section class="road-wrap" id="roadWrap">
       <canvas class="road-cv" id="roadCanvas"></canvas>
 
-      <!-- SOL ÜST YÖNLENDİRME (sadece ok + metre) -->
+      <!-- ÜST ORTA YÖNLENDİRME (ok + metre) -->
       <div class="nav-hud" id="navHud" onclick="openNav()">
         <div class="nav-ico" id="navIcon"></div>
         <span class="nav-dist" id="navTurnDist">--</span>
@@ -301,13 +291,6 @@ input[type=file]{display:none}
       <canvas class="eq" id="eq"></canvas>
     </div>
   </footer>
-<div id="fxPrev">
-  <div class="fxp-top">
-    <div><div class="fxp-title" id="fxpTitle">Efekt önizleme</div><div class="fxp-desc" id="fxpDesc"></div></div>
-    <button class="fxp-x" aria-label="Kapat" onclick="closePreview()"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M5 5l14 14M19 5 5 19"/></svg></button>
-  </div>
-  <div class="fxp-bar" id="fxpBar"></div>
-</div>
 <div id="restBox" onclick="exitRest(true)">
   <div class="rest-clock" id="restClock">--:--</div>
   <div class="rest-date" id="restDate"></div>
@@ -494,6 +477,7 @@ const loadedCells = new Map(), loadedLive = new Map();
 let targetLat = null, targetLon = null, renderLat = null, renderLon = null;
 let fixLat = null, fixLon = null, fixSpeed = 0, fixHead = 0, fixTime = 0;
 let targetHeading = 0, renderHeading = 0, roadAnimRaf = null, lastStepTs = 0;
+let pulsePhase = 0, lastDrawT = performance.now();
 
 function roadSize(){
   roadCv.width = Math.max(1, Math.round(roadCv.clientWidth * DPR));
@@ -858,11 +842,13 @@ async function clearOffline(){
   if (targetLat !== null) rebuildLocal(targetLat, targetLon);
 }
 
-/* ---------- ADRES ARAMA & ROTA YÖNLENDİRME (OSRM + PHOTON) ---------- */
-let navRoute = null;
+/* ---------- ADRES ARAMA & MİNİMAL ROTA YÖNLENDİRME (OSRM + PHOTON) ---------- */
+let navRoute = null; // { destName, destLat, destLon, coords, localPts, cum, totalLen, steps, lastSeg }
 let lastChimeStep = -1, lastRerouteAt = 0, navRerouting = false, navAudioCtx = null;
 let navSearchTimer = null, navRecent = [];
+let navHudIco = '', navHudTxt = '';
 try{ navRecent = JSON.parse(localStorage.getItem('nav_recent') || '[]') || []; }catch{ navRecent = []; }
+const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 
 const TURN_SVGS = {
   'straight':     '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20V5"/><polyline points="7 10 12 5 17 10"/></svg>',
@@ -876,6 +862,12 @@ const TURN_SVGS = {
   'roundabout':   '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="11" r="4"/><path d="M12 20v-5"/><path d="M15 8l4-4"/><polyline points="15 4 19 4 19 8"/></svg>',
   'arrive':       '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-6-5.4-6-10a6 6 0 1 1 12 0c0 4.6-6 10-6 10z"/><circle cx="12" cy="11" r="2.2"/></svg>'
 };
+
+// Yönlendirme hapı: sadece değişince DOM'a yazar (her karede yazmak akıcılığı düşürüyordu)
+function setNavHud(ico, txt){
+  if (ico !== navHudIco){ navHudIco = ico; $('navIcon').innerHTML = TURN_SVGS[ico] || TURN_SVGS.straight; }
+  if (txt !== navHudTxt){ navHudTxt = txt; $('navTurnDist').textContent = txt; }
+}
 
 function parseManeuverIcon(step){
   const m = step.maneuver || {};
@@ -902,27 +894,26 @@ function fmtNavDist(m){
   return `${Math.max(5, Math.round(m / 5) * 5)} M`;
 }
 
+const metricCache = {};
+function setMetric(id, txt){ if (metricCache[id] !== txt){ metricCache[id] = txt; $(id).textContent = txt; } }
 function fmtRemKm(m){
   if (m == null || !isFinite(m)) return '--';
   if (m < 1000) return `${Math.max(0, Math.round(m))} m`;
   const km = m / 1000;
   return km >= 100 ? `${Math.round(km)} km` : `${km.toFixed(1)} km`;
 }
-
 function fmtEta(sec){
   if (sec == null || !isFinite(sec)) return '--';
   const mins = Math.max(1, Math.round(sec / 60));
-  const h = Math.floor(mins / 60);
-  const m = mins % 60;
+  const h = Math.floor(mins / 60), m = mins % 60;
   const durStr = h > 0 ? (m > 0 ? `${h} sa ${m} dk` : `${h} sa`) : `${m} dk`;
   const arr = new Date(Date.now() + mins * 60000);
-  const arrStr = `${pad(arr.getHours())}:${pad(arr.getMinutes())}`;
-  return `${durStr} · ${arrStr}`;
+  return `${durStr} · ${pad(arr.getHours())}:${pad(arr.getMinutes())}`;
 }
-
-function snapToPolyline(px, py, pts, cum){
-  let bestDSq = Infinity, bestSeg = 0, bestT = 0, bestX = pts[0][0], bestY = pts[0][1];
-  for (let i = 0; i < pts.length - 1; i++){
+// Çok noktalı rotada her karede tüm rotayı taramamak için aralık (from..to) verilebilir
+function snapToPolyline(px, py, pts, cum, from = 0, to = pts.length - 1){
+  let bestDSq = Infinity, bestSeg = from, bestT = 0, bestX = pts[from][0], bestY = pts[from][1];
+  for (let i = from; i < to; i++){
     const ax = pts[i][0], ay = pts[i][1], bx = pts[i+1][0], by = pts[i+1][1];
     const dx = bx - ax, dy = by - ay, l2 = dx*dx + dy*dy;
     let t = l2 > 0 ? ((px - ax)*dx + (py - ay)*dy) / l2 : 0;
@@ -985,12 +976,10 @@ function syncNavUiState(){
   const active = !!navRoute;
   $('navHud').classList.toggle('on', active);
   $('navOpenBtn').classList.toggle('on', active);
-  $('navMetrics').classList.toggle('on', active);
+  $('roadWrap').classList.toggle('navon', active);
   $('navCancelModalBtn').style.display = active ? 'inline-block' : 'none';
-  if (!active){
-    $('remDist').textContent = '--';
-    $('remEta').textContent = '--';
-  }
+  $('navMetrics').classList.toggle('on', active);
+  if (!active){ setMetric('remDist', '--'); setMetric('remEta', '--'); }
 }
 
 function cancelNav(announce=false){
@@ -1017,11 +1006,10 @@ async function startRouteTo(destName, destLat, destLon, isReroute=false){
     saveRecentDest({ name: destName, lat: destLat, lon: destLon });
     $('navHud').classList.add('on');
     $('navOpenBtn').classList.add('on');
+    $('roadWrap').classList.add('navon');
     $('navMetrics').classList.add('on');
-    $('navIcon').innerHTML = TURN_SVGS.straight;
-    $('navTurnDist').textContent = '…';
-    $('remDist').textContent = '…';
-    $('remEta').textContent = '…';
+    setNavHud('straight', '…');
+    setMetric('remDist', '…'); setMetric('remEta', '…');
   }
 
   const coordsParam = `${targetLon.toFixed(6)},${targetLat.toFixed(6)};${destLon.toFixed(6)},${destLat.toFixed(6)}`;
@@ -1066,16 +1054,16 @@ async function startRouteTo(destName, destLat, destLon, isReroute=false){
     localPts: [],
     cum: [0],
     totalLen: routeData.distance || 1,
+    steps: rawSteps,
     totalDur: routeData.duration || 0,
-    steps: rawSteps
+    lastSeg: null
   };
   lastChimeStep = -1;
   if (!roadAnchorSet) rebuildLocal(targetLat, targetLon);
   else projectNavRoute();
 
-  $('remDist').textContent = fmtRemKm(navRoute.totalLen);
-  $('remEta').textContent = fmtEta(navRoute.totalDur);
-
+  setMetric('remDist', fmtRemKm(navRoute.totalLen));
+  setMetric('remEta', fmtEta(navRoute.totalDur));
   syncNavUiState();
   drawRoadMap();
   if (!isReroute) toast(`Rota hazır: ${fmtNavDist(navRoute.totalLen)}`);
@@ -1083,20 +1071,28 @@ async function startRouteTo(destName, destLat, destLon, isReroute=false){
 
 function updateNavProgress(ox, oy){
   if (!navRoute || !navRoute.localPts.length) return null;
-  const snap = snapToPolyline(ox, oy, navRoute.localPts, navRoute.cum);
+  const pts = navRoute.localPts, cum = navRoute.cum;
 
+  // Önce son bilinen konumun çevresinde ara (hızlı), uzaksa tüm rotada ara
+  let snap = null;
+  if (navRoute.lastSeg != null){
+    snap = snapToPolyline(ox, oy, pts, cum, Math.max(0, navRoute.lastSeg - 4), Math.min(pts.length - 1, navRoute.lastSeg + 80));
+    if (snap.offDist > 45) snap = null;
+  }
+  if (!snap) snap = snapToPolyline(ox, oy, pts, cum);
+  navRoute.lastSeg = snap.seg;
+
+  // Rotadan sapma kontrolü (> 65 m uzaklaşıldıysa otomatik yeniden rota)
   if (!manual && !navRerouting && snap.offDist > 65 && Date.now() - lastRerouteAt > 12000){
     lastRerouteAt = Date.now();
     navRerouting = true;
-    $('navTurnDist').textContent = '…';
+    setNavHud(navHudIco || 'straight', '…');
     startRouteTo(navRoute.destName, navRoute.destLat, navRoute.destLon, true).finally(() => { navRerouting = false; });
-    return { snap, nextStep: null };
+    return { snap, nextStep: null, distToTurn: 0 };
   }
 
   const remDist = Math.max(0, navRoute.totalLen - snap.along);
-  const frac = navRoute.totalLen > 0 ? Math.max(0, Math.min(1, remDist / navRoute.totalLen)) : 0;
-  const remSec = (navRoute.totalDur || 0) * frac;
-
+  const remSec = (navRoute.totalDur || 0) * (navRoute.totalLen > 0 ? Math.max(0, Math.min(1, remDist / navRoute.totalLen)) : 0);
   let nextIdx = navRoute.steps.length - 1;
   for (let i = 1; i < navRoute.steps.length; i++){
     if (navRoute.steps[i].along > snap.along + 10){ nextIdx = i; break; }
@@ -1105,12 +1101,10 @@ function updateNavProgress(ox, oy){
   const distToTurn = Math.max(0, step.along - snap.along);
 
   if (remDist < 28){
-    $('navIcon').innerHTML = TURN_SVGS.arrive;
-    $('navTurnDist').textContent = 'VARIŞ';
-    $('remDist').textContent = '0 m';
-    $('remEta').textContent = 'Varıldı';
+    setNavHud('arrive', 'VARIŞ');
+    setMetric('remDist', '0 m'); setMetric('remEta', 'Varıldı');
     if (lastChimeStep !== 9999){ lastChimeStep = 9999; playTurnChime(); }
-    return { snap, nextStep: step };
+    return { snap, nextStep: step, distToTurn };
   }
 
   if (distToTurn <= 120 && lastChimeStep !== nextIdx){
@@ -1118,12 +1112,10 @@ function updateNavProgress(ox, oy){
     playTurnChime();
   }
 
-  $('navIcon').innerHTML = TURN_SVGS[step.ico] || TURN_SVGS.straight;
-  $('navTurnDist').textContent = fmtNavDist(distToTurn);
-  $('remDist').textContent = fmtRemKm(remDist);
-  $('remEta').textContent = fmtEta(remSec);
-
-  return { snap, nextStep: step };
+  setNavHud(step.ico, fmtNavDist(distToTurn));
+  setMetric('remDist', fmtRemKm(remDist));
+  setMetric('remEta', fmtEta(remSec));
+  return { snap, nextStep: step, distToTurn };
 }
 
 function openNav(){
@@ -1144,7 +1136,7 @@ function renderNavDefaults(){
   navRecent.forEach(item => {
     const o = document.createElement('div'); o.className = 'opt';
     const dStr = targetLat !== null ? fmtNavDist(distKm(targetLat, targetLon, item.lat, item.lon) * 1000) : '';
-    o.innerHTML = `<div class="opt-top"><span>${item.name}</span><span class="opt-dist">${dStr}</span></div><div class="opt-sub">Son hedef</div>`;
+    o.innerHTML = `<div class="opt-top"><span>${esc(item.name)}</span><span class="opt-dist">${dStr}</span></div><div class="opt-sub">Son hedef</div>`;
     o.onclick = () => { closeNav(); startRouteTo(item.name, item.lat, item.lon, false); };
     l.appendChild(o);
   });
@@ -1185,7 +1177,7 @@ $('navInput').addEventListener('input', e => {
     items.forEach(it => {
       const o = document.createElement('div'); o.className = 'opt';
       const dStr = targetLat !== null ? fmtNavDist(distKm(targetLat, targetLon, it.lat, it.lon) * 1000) : '';
-      o.innerHTML = `<div class="opt-top"><span>${it.name}</span><span class="opt-dist">${dStr}</span></div><div class="opt-sub">${it.sub}</div>`;
+      o.innerHTML = `<div class="opt-top"><span>${esc(it.name)}</span><span class="opt-dist">${dStr}</span></div><div class="opt-sub">${esc(it.sub)}</div>`;
       o.onclick = () => { closeNav(); startRouteTo(it.name, it.lat, it.lon, false); };
       l.appendChild(o);
     });
@@ -1209,11 +1201,38 @@ const STYLE = {
 const DRAW_ORDER = [8, 7, 6, 4, 3, 2, 1, 0];
 let fadeCache = { w: 0, h: 0, gx: null, gy: null };
 
+// Rotanın bir noktadan ileri/geri (dir = +1 / -1) kısa bir parçasını toplar (görüş alanı kadar)
+function collectRoute(pts, seg, p0, dir, maxLen){
+  const P = [p0], D = [0];
+  let len = 0, j = dir === 1 ? seg + 1 : seg;
+  while (j >= 0 && j < pts.length && len < maxLen){
+    const last = P[P.length - 1];
+    len += Math.hypot(pts[j][0] - last[0], pts[j][1] - last[1]);
+    P.push(pts[j]); D.push(len);
+    j += dir;
+  }
+  return { P, D, len: Math.max(len, 1) };
+}
+function routePointAt(R, d){
+  const P = R.P, D = R.D;
+  for (let i = 1; i < P.length; i++){
+    if (D[i] >= d){
+      const span = (D[i] - D[i-1]) || 1, k = (d - D[i-1]) / span;
+      return [P[i-1][0] + (P[i][0] - P[i-1][0]) * k, P[i-1][1] + (P[i][1] - P[i-1][1]) * k];
+    }
+  }
+  return null;
+}
+const mixRGB = (a, b, k) => `${Math.round(a[0] + (b[0] - a[0]) * k)},${Math.round(a[1] + (b[1] - a[1]) * k)},${Math.round(a[2] + (b[2] - a[2]) * k)}`;
+
 function drawRoadMap(){
   const w = roadCv.width, h = roadCv.height;
   if (!w || !h) return;
   const dp = DPR;
   const br = 0.88 + 0.12 * Math.sin(Date.now() / 800);
+  const tNow = performance.now();
+  const dtD = Math.min(0.2, Math.max(0, (tNow - lastDrawT) / 1000));
+  lastDrawT = tNow;
   rctx.setTransform(1, 0, 0, 1, 0, 0);
   rctx.globalCompositeOperation = 'source-over';
   rctx.clearRect(0, 0, w, h);
@@ -1249,6 +1268,7 @@ function drawRoadMap(){
 
   const rad = renderHeading * Math.PI / 180;
   const X = p => (p[0] - ox) * ppm, Y = p => -(p[1] - oy) * ppm;
+  const range = zoomMeters * 1.3;
 
   rctx.save();
   rctx.translate(tx, ty);
@@ -1274,50 +1294,101 @@ function drawRoadMap(){
     if (st[2]) rctx.setLineDash([]);
   }
 
+  /* --- Rota parlaması: yakında açık renk, uzaklaştıkça tema rengine süzülür ve söner --- */
+  const fadeStroke = (Rt, rng, aMax, aMin, wCore, wHalo, haloMul, colA, colB) => {
+    if (Rt.P.length < 2) return;
+    const N = 10;
+    for (let c = 0; c < N; c++){
+      rctx.beginPath();
+      let any = false;
+      for (let i = 1; i < Rt.P.length; i++){
+        const mid = (Rt.D[i-1] + Rt.D[i]) / 2;
+        if (Math.min(N - 1, Math.floor(mid / rng * N)) !== c) continue;
+        rctx.moveTo(X(Rt.P[i-1]), Y(Rt.P[i-1])); rctx.lineTo(X(Rt.P[i]), Y(Rt.P[i]));
+        any = true;
+      }
+      if (!any) continue;
+      const k = (c + 0.5) / N, al = aMax - (aMax - aMin) * k;
+      rctx.lineCap = 'butt';
+      rctx.strokeStyle = `rgba(${TH.acc},${(al * haloMul * br).toFixed(3)})`;
+      rctx.lineWidth = wHalo * dp; rctx.stroke();
+      rctx.lineCap = 'round';
+      rctx.strokeStyle = `rgba(${mixRGB(colA, colB, Math.min(1, k * 1.2))},${al.toFixed(3)})`;
+      rctx.lineWidth = wCore * dp; rctx.stroke();
+    }
+    rctx.lineCap = 'round';
+  };
+  // Akan ışık atımları: okun önünden ileri doğru süzülür
+  const drawPulses = (Rt) => {
+    const spacing = 90, lim = Math.min(Rt.len, range);
+    for (let d = pulsePhase; d < lim; d += spacing){
+      const pt = routePointAt(Rt, d); if (!pt) break;
+      const al = 0.9 * Math.pow(Math.max(0, 1 - d / range), 1.3) * Math.min(1, d / 25);
+      if (al < 0.03) continue;
+      const x = X(pt), y = Y(pt);
+      const g = rctx.createRadialGradient(x, y, 0, x, y, 9 * dp);
+      g.addColorStop(0, `rgba(${TH.core},${al.toFixed(3)})`); g.addColorStop(1, `rgba(${TH.core},0)`);
+      rctx.fillStyle = g; rctx.beginPath(); rctx.arc(x, y, 9 * dp, 0, 6.2832); rctx.fill();
+      rctx.fillStyle = `rgba(255,255,255,${(al * 0.9).toFixed(3)})`; rctx.beginPath(); rctx.arc(x, y, 2.1 * dp, 0, 6.2832); rctx.fill();
+    }
+  };
+  const drawConnector = (p, dist) => {
+    if (dist < 10 || dist > 200) return;
+    rctx.save();
+    rctx.setLineDash([3 * dp, 5 * dp]);
+    rctx.lineCap = 'round';
+    rctx.strokeStyle = `rgba(${TH.core},0.55)`;
+    rctx.lineWidth = 1.3 * dp;
+    rctx.beginPath(); rctx.moveTo(0, 0); rctx.lineTo(X(p), Y(p)); rctx.stroke();
+    rctx.restore();
+  };
+
   if (navRoute && navRoute.localPts.length >= 2){
     const rPts = navRoute.localPts;
-    const sn = navState && navState.snap ? navState.snap : snapToPolyline(ox, oy, rPts, navRoute.cum);
+    const sn = (navState && navState.snap) ? navState.snap : snapToPolyline(ox, oy, rPts, navRoute.cum);
+    const ahead = collectRoute(rPts, sn.seg, sn.pt, 1, range);
+    const behind = collectRoute(rPts, sn.seg, sn.pt, -1, 80);
+    const ns = navState && navState.nextStep && navState.nextStep.ico !== 'arrive' ? navState.nextStep : null;
+    const dTurn = navState ? navState.distToTurn : 9999;
+    const boost = ns ? Math.max(0, Math.min(1, (220 - dTurn) / 120)) : 0;   // dönüşe yaklaşınca çizgi parlar
 
-    if (sn.seg > 0 || sn.t > 0.01){
-      rctx.beginPath();
-      rctx.moveTo(X(rPts[0]), Y(rPts[0]));
-      for (let i = 1; i <= sn.seg; i++) rctx.lineTo(X(rPts[i]), Y(rPts[i]));
-      rctx.lineTo(X(sn.pt), Y(sn.pt));
-      rctx.strokeStyle = `rgba(${TH.acc},0.20)`;
-      rctx.lineWidth = 3 * dp;
-      rctx.stroke();
-    }
+    drawConnector(sn.pt, sn.offDist);
+    fadeStroke(behind, 80, 0.42, 0, 2.6, 7, 0.5, TH.coreA, TH.accA);        // arkada sönen iz
+    fadeStroke(ahead, range, 1, 0.12, 3.4 * (1 + 0.25 * boost), 11 * (1 + 0.3 * boost), 0.28 * (1 + 0.4 * boost), TH.coreA, TH.farA);
+    pulsePhase = (pulsePhase + dtD * (12 + fixSpeed * 0.7)) % 90;
+    drawPulses(ahead);
 
-    rctx.beginPath();
-    rctx.moveTo(X(sn.pt), Y(sn.pt));
-    for (let i = sn.seg + 1; i < rPts.length; i++) rctx.lineTo(X(rPts[i]), Y(rPts[i]));
-    rctx.strokeStyle = `rgba(${TH.acc},${(0.28 * br).toFixed(3)})`;
-    rctx.lineWidth = 11 * dp;
-    rctx.stroke();
-
-    rctx.beginPath();
-    rctx.moveTo(X(sn.pt), Y(sn.pt));
-    for (let i = sn.seg + 1; i < rPts.length; i++) rctx.lineTo(X(rPts[i]), Y(rPts[i]));
-    rctx.strokeStyle = `rgb(${TH.core})`;
-    rctx.lineWidth = 3.4 * dp;
-    rctx.stroke();
-
-    if (navState && navState.nextStep && navState.nextStep.xy){
-      const nx = X(navState.nextStep.xy), ny = Y(navState.nextStep.xy);
+    // Sıradaki dönüş: nokta + yayılan halkalar (yaklaştıkça sıklaşır)
+    if (ns && ns.xy){
+      const nx = X(ns.xy), ny = Y(ns.xy);
+      if (dTurn < 600){
+        const inten = Math.max(0.25, Math.min(1, 1 - dTurn / 500));
+        const ph = ((Date.now() / 1000) * (dTurn < 150 ? 1.6 : 0.8)) % 1;
+        for (let wv = 0; wv < 2; wv++){
+          const p = (ph + wv * 0.5) % 1;
+          rctx.strokeStyle = `rgba(${TH.core},${((1 - p) * 0.55 * inten).toFixed(3)})`;
+          rctx.lineWidth = 1.6 * dp;
+          rctx.beginPath(); rctx.arc(nx, ny, (6 + p * 18) * dp, 0, 6.2832); rctx.stroke();
+        }
+      }
       rctx.fillStyle = `rgba(${TH.acc},0.35)`;
-      rctx.beginPath(); rctx.arc(nx, ny, 9 * dp, 0, Math.PI * 2); rctx.fill();
+      rctx.beginPath(); rctx.arc(nx, ny, 9 * dp, 0, 6.2832); rctx.fill();
       rctx.fillStyle = '#ffffff';
-      rctx.beginPath(); rctx.arc(nx, ny, 3.5 * dp, 0, Math.PI * 2); rctx.fill();
+      rctx.beginPath(); rctx.arc(nx, ny, 3.5 * dp, 0, 6.2832); rctx.fill();
     }
 
+    // Hedef halkası
     const endPt = rPts[rPts.length - 1];
     const ex = X(endPt), ey = Y(endPt);
-    rctx.strokeStyle = `rgb(${TH.core})`;
-    rctx.lineWidth = 2 * dp;
-    rctx.beginPath(); rctx.arc(ex, ey, 8 * dp * br, 0, Math.PI * 2); rctx.stroke();
-    rctx.fillStyle = `rgb(${TH.acc})`;
-    rctx.beginPath(); rctx.arc(ex, ey, 4 * dp, 0, Math.PI * 2); rctx.fill();
+    if (Math.abs(ex) < w && Math.abs(ey) < h * 1.5){
+      rctx.strokeStyle = `rgb(${TH.core})`;
+      rctx.lineWidth = 2 * dp;
+      rctx.beginPath(); rctx.arc(ex, ey, 8 * dp * br, 0, 6.2832); rctx.stroke();
+      rctx.fillStyle = `rgb(${TH.acc})`;
+      rctx.beginPath(); rctx.arc(ex, ey, 4 * dp, 0, 6.2832); rctx.fill();
+    }
   } else if (matched){
+    // Serbest sürüş: üzerinde gidilen yol boyunca parlama
     const pts = matched.m, seg = bestSeg;
     const a = pts[seg], b = pts[seg+1];
     const dx = b[0] - a[0], dy = b[1] - a[1], L2 = dx*dx + dy*dy;
@@ -1325,47 +1396,25 @@ function drawRoadMap(){
     tt = Math.max(0, Math.min(1, tt));
     const p0 = [a[0] + tt*dx, a[1] + tt*dy];
     const dir = (dx * Math.sin(rad) + dy * Math.cos(rad)) >= 0 ? 1 : -1;
+    const ahead = collectRoute(pts, seg, p0, dir, range);
+    const behind = collectRoute(pts, seg, p0, -dir, 70);
 
-    const build = (d, maxLen) => {
-      const path = [p0], cum = [0];
-      let len = 0, j = d === 1 ? seg + 1 : seg;
-      while (j >= 0 && j < pts.length && len < maxLen){
-        const last = path[path.length - 1];
-        len += Math.hypot(pts[j][0] - last[0], pts[j][1] - last[1]);
-        path.push(pts[j]); cum.push(len);
-        j += d;
-      }
-      return { path, cum, len: Math.max(len, 1) };
-    };
-    const strokeFade = ({ path, cum, len }, aMax, aMin) => {
-      if (path.length < 2) return;
-      rctx.beginPath();
-      for (let i = 0; i < path.length; i++){ if (i === 0) rctx.moveTo(X(path[i]), Y(path[i])); else rctx.lineTo(X(path[i]), Y(path[i])); }
-      rctx.strokeStyle = `rgba(${TH.acc},${(aMax * 0.2 * br).toFixed(3)})`;
-      rctx.lineWidth = 9 * dp;
-      rctx.stroke();
-      const N = 8;
-      for (let c = 0; c < N; c++){
-        rctx.beginPath();
-        let any = false;
-        for (let i = 1; i < path.length; i++){
-          const mid = (cum[i-1] + cum[i]) / 2;
-          if (Math.min(N - 1, Math.floor(mid / len * N)) !== c) continue;
-          rctx.moveTo(X(path[i-1]), Y(path[i-1]));
-          rctx.lineTo(X(path[i]), Y(path[i]));
-          any = true;
-        }
-        if (!any) continue;
-        const al = aMax - (aMax - aMin) * ((c + 0.5) / N);
-        rctx.strokeStyle = `rgba(${TH.core},${al.toFixed(3)})`;
-        rctx.lineWidth = 2.6 * dp;
-        rctx.stroke();
-      }
-    };
-    strokeFade(build(dir, zoomMeters * 1.3), 1, 0.12);
-    strokeFade(build(-dir, 45), 0.35, 0.05);
+    drawConnector(p0, Math.sqrt(bestD));
+    fadeStroke(behind, 70, 0.4, 0, 2.4, 7, 0.5, TH.coreA, TH.accA);
+    fadeStroke(ahead, range, 1, 0.12, 2.8, 9, 0.22, TH.coreA, TH.farA);
+    if (fixSpeed > 1.5){
+      pulsePhase = (pulsePhase + dtD * (12 + fixSpeed * 0.7)) % 90;
+      drawPulses(ahead);
+    }
   }
   rctx.restore();
+
+  // Araç halesi: kenar maskesinden ÖNCE çizilir, böylece alt kenarda sert kesilmez
+  const glow = rctx.createRadialGradient(tx, ty, 0, tx, ty, 80 * dp);
+  glow.addColorStop(0, `rgba(${TH.acc},${(0.34 * br).toFixed(3)})`);
+  glow.addColorStop(1, `rgba(${TH.acc},0)`);
+  rctx.fillStyle = glow;
+  rctx.beginPath(); rctx.arc(tx, ty, 80 * dp, 0, Math.PI * 2); rctx.fill();
 
   if (!fadeCache.gx || fadeCache.w !== w || fadeCache.h !== h){
     const ease = k => k <= 0 ? 0 : k >= 1 ? 1 : 0.5 - 0.5 * Math.cos(Math.PI * k);
@@ -1385,12 +1434,6 @@ function drawRoadMap(){
   rctx.restore();
   rctx.globalCompositeOperation = 'source-over';
 
-  const glow = rctx.createRadialGradient(tx, ty, 0, tx, ty, 80 * dp);
-  glow.addColorStop(0, `rgba(${TH.acc},${(0.34 * br).toFixed(3)})`);
-  glow.addColorStop(1, `rgba(${TH.acc},0)`);
-  rctx.fillStyle = glow;
-  rctx.beginPath(); rctx.arc(tx, ty, 80 * dp, 0, Math.PI * 2); rctx.fill();
-
   rctx.save();
   rctx.translate(tx, ty);
   rctx.fillStyle = `rgb(${TH.arrow})`;
@@ -1406,20 +1449,21 @@ function drawRoadMap(){
 
 /* ---------- RENK TEMALARI (saate dokun) ---------- */
 const THEMES = {
-  red:   { n:'Kırmızı',    acc:[229,72,77],   core:[255,112,96],  arrow:[240,138,69], play:[217,119,36], clk:[245,245,247] },
-  amber: { n:'Kehribar',   acc:[255,176,0],   core:[255,205,100], arrow:[255,176,0],  play:[255,176,0],  clk:[255,191,71] },
-  ice:   { n:'Buz mavisi', acc:[64,196,255],  core:[150,225,255], arrow:[95,208,255], play:[76,195,255], clk:[191,234,255] },
-  green: { n:'Neon yeşil', acc:[57,255,120],  core:[150,255,185], arrow:[57,255,120], play:[57,255,120], clk:[168,255,198] },
-  synth: { n:'Synthwave',  acc:[255,60,200],  core:[255,140,230], arrow:[255,79,216], play:[182,107,255],clk:[255,155,236] },
-  white: { n:'Beyaz',      acc:[245,245,247], core:[255,255,255], arrow:[255,255,255],play:[255,255,255],clk:[255,255,255] }
+  red:   { n:'Kırmızı',    acc:[229,72,77],   core:[255,112,96],  far:[200,50,90],   arrow:[240,138,69], play:[217,119,36], clk:[245,245,247] },
+  amber: { n:'Kehribar',   acc:[255,176,0],   core:[255,205,100], far:[255,130,0],   arrow:[255,176,0],  play:[255,176,0],  clk:[255,191,71] },
+  ice:   { n:'Buz mavisi', acc:[64,196,255],  core:[150,225,255], far:[60,140,255],  arrow:[95,208,255], play:[76,195,255], clk:[191,234,255] },
+  green: { n:'Neon yeşil', acc:[57,255,120],  core:[150,255,185], far:[20,200,160],  arrow:[57,255,120], play:[57,255,120], clk:[168,255,198] },
+  synth: { n:'Synthwave',  acc:[255,60,200],  core:[255,140,230], far:[150,90,255],  arrow:[255,79,216], play:[182,107,255],clk:[255,155,236] },
+  white: { n:'Beyaz',      acc:[245,245,247], core:[255,255,255], far:[190,190,205], arrow:[255,255,255],play:[255,255,255],clk:[255,255,255] }
 };
 const THEME_ORDER = ['red', 'amber', 'ice', 'green', 'synth', 'white', 'auto'];
-const THEME_KEYS = ['acc', 'core', 'arrow', 'play', 'clk'];
+const THEME_KEYS = ['acc', 'core', 'far', 'arrow', 'play', 'clk'];
 const cloneTheme = th => { const o = {}; THEME_KEYS.forEach(k => { o[k] = th[k].slice(); }); return o; };
 let themeKey = 'red';
 try{ const sv = localStorage.getItem('theme'); if (sv && THEME_ORDER.includes(sv)) themeKey = sv; }catch{}
 let curTheme = cloneTheme(THEMES.red), tweenRaf = 0;
-const TH = { acc: '229,72,77', core: '255,112,96', arrow: '240,138,69', clk: '245,245,247' };
+const TH = { acc: '229,72,77', core: '255,112,96', far: '200,50,90', arrow: '240,138,69', clk: '245,245,247',
+  accA: [229,72,77], coreA: [255,112,96], farA: [200,50,90] };
 
 function applyThemeColors(c){
   const r = a => a.map(v => Math.round(v)).join(',');
@@ -1427,7 +1471,8 @@ function applyThemeColors(c){
   root.setProperty('--acc', r(c.acc));
   root.setProperty('--play', 'rgb(' + r(c.play) + ')');
   root.setProperty('--clk', 'rgb(' + r(c.clk) + ')');
-  TH.acc = r(c.acc); TH.core = r(c.core); TH.arrow = r(c.arrow); TH.clk = r(c.clk);
+  TH.acc = r(c.acc); TH.core = r(c.core); TH.far = r(c.far); TH.arrow = r(c.arrow); TH.clk = r(c.clk);
+  TH.accA = c.acc.slice(); TH.coreA = c.core.slice(); TH.farA = c.far.slice();
   if (typeof eqKick === 'function') eqKick();
   if (!roadAnimRaf) drawRoadMap();
 }
@@ -1465,79 +1510,33 @@ $('clockT').addEventListener('click', () => {
 });
 setInterval(() => { if (themeKey === 'auto') setTheme('auto', false, false); }, 60000);
 setInterval(() => { if (!roadAnimRaf && renderLat !== null && !document.hidden && !restMode) drawRoadMap(); }, 200);
+// Rota açıkken ışık atımları akıcı kalsın (park halinde de ~15 kare/sn)
+setInterval(() => { if (navRoute && !roadAnimRaf && renderLat !== null && !document.hidden && !restMode) drawRoadMap(); }, 66);
 
-/* ---------- HAVA EFEKTLERİ (arka planda) ---------- */
+/* ---------- ARKA PLAN EFEKTLERİ: sadece hız çizgileri ve mola modu gökyüzü ---------- */
 const fxCv = $('fxCanvas'), fxCtx = fxCv.getContext('2d');
 const FDPR = Math.min(2, window.devicePixelRatio || 1);
-const FXM = [0, 0.5, 1, 1.6], FX_LEVEL_NAMES = ['Kapalı', 'Az', 'Orta', 'Çok'];
-let fxLevel = 2;
-try{
-  const sv = localStorage.getItem('fxlvl');
-  if (sv !== null && +sv >= 0 && +sv <= 3) fxLevel = +sv;
-  else if (localStorage.getItem('fx') === 'off') fxLevel = 0;
-  else if (typeof matchMedia !== 'undefined' && matchMedia('(prefers-reduced-motion: reduce)').matches) fxLevel = 0;
-}catch{}
-let wxFx = { type: 'cloud', night: false, wind: 0, wdir: 0 }, sunInfo = null;
-let fxPrev = null, fxCur = {}, fxSig = '', fxL = {}, fxRaf = 0, fxLast = 0;
-let speedLvl = 0, speedFlag = false, shootT = 3, shootCur = null;
+let fxOn = true;
+try{ if (localStorage.getItem('fx') === 'off') fxOn = false; }catch{}
+let fxCur = {}, fxSig = '', fxL = { stars: [], streaks: [] }, fxRaf = 0, fxLast = 0;
+let speedLvl = 0, speedFlag = false, shootT = 25, shootCur = null;
 const fxT0 = performance.now();
-const effLevel = () => fxPrev ? Math.max(2, fxLevel) : fxLevel;
 
 function fxSize(){
   fxCv.width = Math.max(1, Math.round(fxCv.clientWidth * FDPR));
   fxCv.height = Math.max(1, Math.round(fxCv.clientHeight * FDPR));
   fxBuild(); fxKick();
 }
-function windLean(){
-  const lv = Math.min(1, (wxFx.wind || 0) / 45) * 0.7;
-  const sg = -Math.sin(((wxFx.wdir || 0) - (targetHeading || 0)) * Math.PI / 180);
-  return lv * (sg >= 0 ? 1 : -1) * Math.max(0.35, Math.abs(sg));
-}
-function glowNow(){
-  if (!sunInfo) return { type: null, i: 0 };
-  const nowMin = sunInfo.nowMin + (Date.now() - sunInfo.at) / 60000;
-  const dr = 1 - Math.abs(nowMin - sunInfo.rise) / 30, ds = 1 - Math.abs(nowMin - sunInfo.set) / 30;
-  const i = Math.max(dr, ds, 0);
-  return { type: dr >= ds ? 'rise' : 'set', i: i * i * (3 - 2 * i) };
-}
 function computeFx(){
-  if (effLevel() === 0) return {};
-  if (fxPrev) return Object.assign({}, fxPrev.f);
-  const ty = wxFx.type, night = wxFx.night, f = {};
-  if (ty === 'crain') f.rain = { n: 10, sp: 0.7 };
-  else if (ty === 'rain') f.rain = { n: 18, sp: 1 };
-  else if (ty === 'ctstorm' || ty === 'tstorm') f.rain = { n: 24, sp: 1.3 };
-  else if (ty === 'csnow') f.snow = { n: 40, sp: 0.8 };
-  else if (ty === 'snow') f.snow = { n: 85, sp: 1 };
-  else if (ty === 'sleet') f.snow = { n: 55, sp: 1.7 };
-  else if (ty === 'fog') f.fog = true;
-  if (f.rain || f.snow){
-    f.lean = +windLean().toFixed(1);
-    if (night && f.rain) f.bokeh = true;
-  } else if (!f.fog && (restMode || (night && (ty === 'sun' || ty === 'msunny' || ty === 'pcloud')))){
-    f.stars = { n: restMode ? 120 : 45, dense: restMode };
-    if (restMode){ f.aurora = true; f.shoot = true; }
-  }
-  const gn = glowNow();
-  if (gn.i > 0.02) f.glow = gn.type;
+  if (!fxOn) return {};
+  const f = {};
+  if (restMode){ f.stars = { n: 120 }; f.aurora = true; f.shoot = true; }
   return f;
 }
 function setFxState(){
-  const f = computeFx(), sig = JSON.stringify(f) + '|' + effLevel();
+  const f = computeFx(), sig = JSON.stringify(f);
   if (sig !== fxSig){ fxSig = sig; fxCur = f; fxBuild(); }
   fxKick();
-}
-function setFxWeather(type, night, wind, wdir, sunrise, sunset, curTime){
-  wxFx = { type, night, wind: wind || 0, wdir: wdir || 0 };
-  const mm = s => (s && s.length >= 16) ? (+s.slice(11, 13)) * 60 + (+s.slice(14, 16)) : null;
-  const rise = mm(sunrise), set = mm(sunset), now = mm(curTime);
-  sunInfo = (rise !== null && set !== null && now !== null) ? { rise, set, nowMin: now, at: Date.now() } : null;
-  setFxState();
-}
-function newDrop(init, sp){
-  const dp = FDPR;
-  return { x: Math.random() * fxCv.width, y: init ? Math.random() * fxCv.height : -10 * dp, r: (1.6 + Math.random() * 2.2) * dp, sp,
-    v: (35 + Math.random() * 75) * dp * sp, mv: Math.random() < 0.5, t: Math.random() * 1.2, trail: 0 };
 }
 function newStreak(init){
   const w = fxCv.width, side = Math.random() < 0.5 ? -1 : 1, ang = -0.6 + Math.random() * 1.5;
@@ -1545,44 +1544,21 @@ function newStreak(init){
     v: (170 + Math.random() * 230) * FDPR, len: (30 + Math.random() * 60) * FDPR, a: 0.10 + Math.random() * 0.14 };
 }
 function fxBuild(){
-  const w = fxCv.width, h = fxCv.height, dp = FDPR, f = fxCur, m = FXM[effLevel()] || 1;
-  const cnt = n => Math.max(1, Math.round(n * m));
-  fxL = { drops: [], beads: [], flakes: [], fog: [], stars: [], bokeh: [], streaks: [] };
+  const w = fxCv.width, h = fxCv.height, dp = FDPR, f = fxCur;
+  fxL = { stars: [], streaks: [] };
   fxCtx.clearRect(0, 0, w, h);
-  if (f.rain){
-    for (let i = 0; i < cnt(f.rain.n); i++) fxL.drops.push(newDrop(true, f.rain.sp));
-    const ns = Math.round(w * h / (dp * dp) / 9000 * Math.min(m, 1.3));
-    for (let i = 0; i < ns; i++)
-      fxL.beads.push({ x: Math.random() * w, y: Math.random() * h, r: (0.7 + Math.random()) * dp, c: `rgba(255,255,255,${(0.05 + Math.random() * 0.07).toFixed(3)})` });
-  }
-  if (f.snow){
-    for (let i = 0; i < cnt(f.snow.n); i++)
-      fxL.flakes.push({ x: Math.random() * w, y: Math.random() * h, r: (0.7 + Math.random() * 1.7) * dp, vy: (14 + Math.random() * 30) * dp * f.snow.sp,
-        sw: (6 + Math.random() * 16) * dp, ph: Math.random() * 6.28, c: `rgba(255,255,255,${(0.25 + Math.random() * 0.45).toFixed(3)})` });
-  }
-  if (f.fog){
-    for (let i = 0; i < 3; i++)
-      fxL.fog.push({ x: Math.random() * w, y: h * (0.3 + Math.random() * 0.5), r: h * (0.8 + Math.random() * 0.5),
-        vx: (6 + Math.random() * 8) * dp * (Math.random() < 0.5 ? -1 : 1), a: 0.05 + Math.random() * 0.03 });
-  }
   if (f.stars){
-    for (let i = 0; i < cnt(f.stars.n); i++){
-      const vx = f.stars.dense ? (1 + Math.random() * 3) * dp : 0;
+    for (let i = 0; i < f.stars.n; i++){
+      const vx = (1 + Math.random() * 3) * dp;
       fxL.stars.push({ x: Math.random() * w, y: Math.random() * h, r: (0.5 + Math.random()) * dp, a: 0.25 + Math.random() * 0.35,
         ph: Math.random() * 6.28, sp: 0.5 + Math.random() * 1.5, vx, vy: vx * 0.3 });
     }
   }
-  if (f.bokeh){
-    for (let i = 0; i < Math.max(5, Math.round(12 * m)); i++)
-      fxL.bokeh.push({ x: Math.random() * w, y: h * (0.15 + Math.random() * 0.8), r: h * (0.04 + Math.random() * 0.08),
-        vx: (3 + Math.random() * 6) * dp * (Math.random() < 0.5 ? -1 : 1), ci: Math.floor(Math.random() * 3), a: 0.05 + Math.random() * 0.06, ph: Math.random() * 6.28 });
-  }
-  for (let i = 0; i < Math.max(10, Math.round(26 * m)); i++) fxL.streaks.push(newStreak(true));
+  for (let i = 0; i < 26; i++) fxL.streaks.push(newStreak(true));
 }
-function fxHasLayers(){ const f = fxCur; return !!(f.rain || f.snow || f.fog || f.stars || f.bokeh || f.aurora || f.glow); }
+function fxHasLayers(){ const f = fxCur; return !!(f.stars || f.aurora); }
 function fxSpeedWanted(){
-  if (fxPrev) return !!fxPrev.speed;
-  if (effLevel() === 0) return false;
+  if (!fxOn) return false;
   const fresh = Date.now() - fixTime < 6000;
   if (fixSpeed >= 22.2 && fresh) speedFlag = true; else if (fixSpeed < 19 || !fresh) speedFlag = false;
   return speedFlag;
@@ -1626,33 +1602,11 @@ function fxFrame(ts){
   if (!fxHasLayers() && speedLvl < 0.01 && !spTarget){ fxCtx.clearRect(0, 0, w, h); fxLast = 0; return; }
   fxCtx.clearRect(0, 0, w, h);
 
-  if (f.glow){
-    const gi = fxPrev ? (fxPrev.glowI || 1) : glowNow().i;
-    if (gi > 0.005){
-      const pulse = 0.93 + 0.07 * Math.sin(t * 0.9), rise = f.glow === 'rise', k = gi * pulse;
-      const cx = w * (rise ? 0.22 : 0.78), cy = h * (1.12 - 0.22 * gi), g = fxCtx.createRadialGradient(cx, cy, 0, cx, cy, h * 1.05);
-      if (rise){
-        g.addColorStop(0, `rgba(255,184,110,${(0.34 * k).toFixed(3)})`); g.addColorStop(0.35, `rgba(255,140,120,${(0.18 * k).toFixed(3)})`); g.addColorStop(0.7, `rgba(160,90,170,${(0.07 * k).toFixed(3)})`);
-      } else {
-        g.addColorStop(0, `rgba(255,120,60,${(0.36 * k).toFixed(3)})`); g.addColorStop(0.35, `rgba(236,70,110,${(0.20 * k).toFixed(3)})`); g.addColorStop(0.7, `rgba(120,60,160,${(0.08 * k).toFixed(3)})`);
-      }
-      g.addColorStop(1, 'rgba(0,0,0,0)');
-      fxCtx.fillStyle = g; fxCtx.fillRect(0, 0, w, h);
-    }
-  }
   if (f.aurora) drawAurora(w, h, t);
-  if (f.fog){
-    for (const b of fxL.fog){
-      b.x += b.vx * dt;
-      if (b.x < -b.r) b.x = w + b.r; else if (b.x > w + b.r) b.x = -b.r;
-      const g = fxCtx.createRadialGradient(b.x, b.y, 0, b.x, b.y, b.r);
-      g.addColorStop(0, `rgba(205,215,228,${b.a.toFixed(3)})`); g.addColorStop(1, 'rgba(205,215,228,0)');
-      fxCtx.fillStyle = g; fxCtx.fillRect(b.x - b.r, b.y - b.r, b.r * 2, b.r * 2);
-    }
-  }
   if (f.stars){
     for (const s of fxL.stars){
-      if (s.vx){ s.x += s.vx * dt; s.y += s.vy * dt; if (s.x > w + 2) s.x = -2; if (s.y > h + 2) s.y = -2; }
+      s.x += s.vx * dt; s.y += s.vy * dt;
+      if (s.x > w + 2) s.x = -2; if (s.y > h + 2) s.y = -2;
       fxCtx.fillStyle = `rgba(255,255,255,${(s.a * (0.55 + 0.45 * Math.sin(t * s.sp + s.ph))).toFixed(3)})`;
       fxCtx.beginPath(); fxCtx.arc(s.x, s.y, s.r, 0, 6.2832); fxCtx.fill();
     }
@@ -1662,7 +1616,7 @@ function fxFrame(ts){
       shootT -= dt;
       if (shootT <= 0){
         shootCur = { x: w * (0.15 + Math.random() * 0.6), y: h * (0.05 + Math.random() * 0.3), vx: (300 + Math.random() * 160) * dp, vy: (150 + Math.random() * 90) * dp, age: 0, life: 0.9 + Math.random() * 0.4 };
-        shootT = (fxPrev && fxPrev.shootFast) ? 2.8 : 25 + Math.random() * 35;
+        shootT = 25 + Math.random() * 35;
       }
     } else {
       const s = shootCur; s.age += dt; s.x += s.vx * dt; s.y += s.vy * dt;
@@ -1676,22 +1630,9 @@ function fxFrame(ts){
       }
     }
   }
-  if (f.bokeh){
-    fxCtx.globalCompositeOperation = 'lighter';
-    for (const b of fxL.bokeh){
-      b.x += b.vx * dt;
-      if (b.x < -b.r) b.x = w + b.r; else if (b.x > w + b.r) b.x = -b.r;
-      const col = b.ci === 0 ? TH.acc : b.ci === 1 ? '255,226,190' : '190,215,255';
-      const a = b.a * (0.7 + 0.3 * Math.sin(t * 0.5 + b.ph));
-      const g = fxCtx.createRadialGradient(b.x, b.y, 0, b.x, b.y, b.r);
-      g.addColorStop(0, `rgba(${col},${a.toFixed(3)})`); g.addColorStop(0.7, `rgba(${col},${(a * 0.8).toFixed(3)})`); g.addColorStop(1, `rgba(${col},0)`);
-      fxCtx.fillStyle = g; fxCtx.fillRect(b.x - b.r, b.y - b.r, b.r * 2, b.r * 2);
-    }
-    fxCtx.globalCompositeOperation = 'source-over';
-  }
   if (speedLvl > 0.01){
     const cx = w * 0.5, cy = h * 0.42, maxR = Math.hypot(w, h) * 0.55;
-    const boost = fxPrev ? 1.2 : 1 + Math.max(0, Math.min(1.5, (fixSpeed - 22) / 30));
+    const boost = 1 + Math.max(0, Math.min(1.5, (fixSpeed - 22) / 30));
     fxCtx.lineCap = 'round'; fxCtx.lineWidth = 1.1 * dp;
     for (const s of fxL.streaks){
       s.r += s.v * boost * dt;
@@ -1704,110 +1645,15 @@ function fxFrame(ts){
       fxCtx.beginPath(); fxCtx.moveTo(x1, y1); fxCtx.lineTo(x1 + s.dx * len, y1 + s.dy * len); fxCtx.stroke();
     }
   }
-  if (f.rain){
-    const lean = f.lean || 0;
-    for (const s of fxL.beads){ fxCtx.fillStyle = s.c; fxCtx.beginPath(); fxCtx.arc(s.x, s.y, s.r, 0, 6.2832); fxCtx.fill(); }
-    for (const d of fxL.drops){
-      d.t -= dt;
-      if (d.t <= 0){ d.mv = !d.mv; d.t = d.mv ? 0.4 + Math.random() * 1.3 : 0.3 + Math.random() * 2.2; }
-      if (d.mv){ const m = d.v * dt; d.y += m; d.x += m * lean * 0.5; d.trail = Math.min(d.trail + m, 46 * dp); }
-      else d.trail = Math.max(0, d.trail - dt * 20 * dp);
-      if (d.y - d.trail > h + 10 * dp || d.x < -20 || d.x > w + 20){ Object.assign(d, newDrop(false, d.sp)); continue; }
-      if (d.trail > 1){
-        fxCtx.strokeStyle = 'rgba(255,255,255,0.07)'; fxCtx.lineWidth = d.r * 0.9; fxCtx.lineCap = 'round';
-        fxCtx.beginPath(); fxCtx.moveTo(d.x - d.trail * lean * 0.5, d.y - d.trail); fxCtx.lineTo(d.x, d.y); fxCtx.stroke();
-      }
-      fxCtx.fillStyle = 'rgba(255,255,255,0.10)'; fxCtx.strokeStyle = 'rgba(255,255,255,0.26)'; fxCtx.lineWidth = dp;
-      fxCtx.beginPath(); fxCtx.arc(d.x, d.y, d.r, 0, 6.2832); fxCtx.fill(); fxCtx.stroke();
-      fxCtx.fillStyle = 'rgba(255,255,255,0.5)';
-      fxCtx.beginPath(); fxCtx.arc(d.x - d.r * 0.3, d.y - d.r * 0.3, d.r * 0.25, 0, 6.2832); fxCtx.fill();
-    }
-  }
-  if (f.snow){
-    const lean = f.lean || 0;
-    for (const fl of fxL.flakes){
-      fl.y += fl.vy * dt; fl.x += lean * 60 * dp * dt;
-      if (fl.y > h + fl.r){ fl.y = -fl.r; fl.x = Math.random() * w; }
-      if (fl.x > w + 10) fl.x = -10; else if (fl.x < -10) fl.x = w + 10;
-      fxCtx.fillStyle = fl.c;
-      fxCtx.beginPath(); fxCtx.arc(fl.x + Math.sin(t * 0.6 + fl.ph) * fl.sw, fl.y, fl.r, 0, 6.2832); fxCtx.fill();
-    }
-  }
   fxRaf = requestAnimationFrame(fxFrame);
 }
+// Hava durumu ikonuna dokununca hız çizgileri ve mola gökyüzü açılır / kapanır
 $('art').addEventListener('click', () => {
-  fxLevel = (fxLevel + 1) % 4;
-  try{ localStorage.setItem('fxlvl', String(fxLevel)); }catch{}
+  fxOn = !fxOn;
+  try{ localStorage.setItem('fx', fxOn ? 'on' : 'off'); }catch{}
   setFxState();
-  toast('Hava efekti: ' + FX_LEVEL_NAMES[fxLevel]);
+  toast('Efektler: ' + (fxOn ? 'Açık' : 'Kapalı'));
 });
-
-/* ---------- EFEKT ÖNİZLEME (hava durumu yazısına dokun) ---------- */
-const FX_PREVIEW = [
-  { n: 'Yağmur', d: 'Cama süzülen damlalar', f: { rain: { n: 18, sp: 1 } } },
-  { n: 'Hafif yağmur', d: 'Seyrek, yavaş damlalar', f: { rain: { n: 10, sp: 0.7 } } },
-  { n: 'Fırtına', d: 'Yoğun ve hızlı damlalar', f: { rain: { n: 26, sp: 1.3 }, lean: 0.6 } },
-  { n: 'Rüzgârlı yağmur', d: 'Rüzgârda eğilen damlalar', f: { rain: { n: 20, sp: 1.1 }, lean: 0.9 } },
-  { n: 'Kar', d: 'Yavaş düşen taneler', f: { snow: { n: 85, sp: 1 } } },
-  { n: 'Rüzgârlı kar', d: 'Savrulan taneler', f: { snow: { n: 85, sp: 1 }, lean: 1 } },
-  { n: 'Sis', d: 'Gezinen hafif pus', f: { fog: true } },
-  { n: 'Yıldızlı gece', d: 'Açık gecede parlayan yıldızlar', f: { stars: { n: 60, dense: false } } },
-  { n: 'Kayan yıldız', d: 'Yıldızlar arasında nadir bir çizgi', f: { stars: { n: 90, dense: true }, shoot: true }, shootFast: true },
-  { n: 'Aurora', d: 'Tema renginde yavaş ışık dalgaları (mola modu)', f: { stars: { n: 110, dense: true }, aurora: true, shoot: true } },
-  { n: 'Far bokeh', d: 'Gece yağmurunda bulanık ışıklar', f: { rain: { n: 14, sp: 0.8 }, bokeh: true } },
-  { n: 'Gün doğumu', d: 'Sabah ışıması, doğumdan 30 dk önce / sonra', f: { glow: 'rise' }, glowI: 1 },
-  { n: 'Gün batımı', d: 'Akşam ışıması, batımdan 30 dk önce / sonra', f: { glow: 'set' }, glowI: 1 },
-  { n: 'Hız çizgileri', d: '80 km/sa üstünde kenarlardan akan çizgiler', f: {}, speed: true }
-];
-let prevIdx = 0, prevAuto = true, prevTimer = 0;
-function buildPrevBar(){
-  const bar = $('fxpBar'); bar.innerHTML = '';
-  FX_PREVIEW.forEach((e, i) => {
-    const b = document.createElement('button'); b.className = 'fxp-chip'; b.textContent = e.n;
-    b.onclick = () => { prevAuto = false; markPrev(); setPrev(i); };
-    bar.appendChild(b);
-  });
-  const au = document.createElement('button'); au.className = 'fxp-chip'; au.id = 'fxpAuto'; au.textContent = 'Otomatik';
-  au.onclick = () => { prevAuto = !prevAuto; markPrev(); };
-  bar.appendChild(au);
-  const rk = document.createElement('button'); rk.className = 'fxp-chip'; rk.textContent = 'Renk';
-  rk.onclick = () => setTheme(THEME_ORDER[(THEME_ORDER.indexOf(themeKey) + 1) % THEME_ORDER.length], true, false);
-  bar.appendChild(rk);
-}
-function markPrev(){
-  const kids = $('fxpBar').children || [];
-  for (let i = 0; i < kids.length; i++){
-    const on = i < FX_PREVIEW.length ? i === prevIdx : (i === FX_PREVIEW.length ? prevAuto : false);
-    kids[i].className = 'fxp-chip' + (on ? ' on' : '');
-  }
-}
-function setPrev(i){
-  prevIdx = i;
-  const e = FX_PREVIEW[i];
-  fxPrev = { f: e.f, glowI: e.glowI, speed: !!e.speed, shootFast: !!e.shootFast };
-  shootT = 1.5; shootCur = null;
-  $('fxpTitle').textContent = e.n; $('fxpDesc').textContent = e.d;
-  markPrev();
-  const kids = $('fxpBar').children;
-  if (kids && kids[i] && kids[i].scrollIntoView) kids[i].scrollIntoView({ inline: 'center', block: 'nearest', behavior: 'smooth' });
-  setFxState();
-}
-function openPreview(){
-  const scr = document.querySelector('.screen');
-  if (scr.classList.contains('preview')) return;
-  scr.classList.add('preview');
-  buildPrevBar(); prevAuto = true; setPrev(0);
-  clearInterval(prevTimer);
-  prevTimer = setInterval(() => { if (prevAuto) setPrev((prevIdx + 1) % FX_PREVIEW.length); }, 7000);
-}
-function closePreview(){
-  clearInterval(prevTimer);
-  document.querySelector('.screen').classList.remove('preview');
-  fxPrev = null; speedLvl = 0;
-  setFxState();
-}
-$('mainCond').addEventListener('click', openPreview);
-setInterval(setFxState, 60000);
 
 /* ---------- MOLA MODU (3 dk hareketsiz kalınca) ---------- */
 const REST_AFTER = 3 * 60 * 1000;
@@ -2036,7 +1882,7 @@ const DAYS=["Pazar","Pazartesi","Salı","Çarşamba","Perşembe","Cuma","Cumarte
 const MON3=["OCA","ŞUB","MAR","NİS","MAY","HAZ","TEM","AĞU","EYL","EKİ","KAS","ARA"];
 async function fetchWeather(lat,lon,place){
   try{
-    const d = await (await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,relative_humidity_2m,weather_code,wind_speed_10m,wind_direction_10m,is_day&hourly=temperature_2m,precipitation_probability&daily=weather_code,temperature_2m_max,sunrise,sunset&timezone=auto`)).json();
+    const d = await (await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,relative_humidity_2m,weather_code,wind_speed_10m,is_day&hourly=temperature_2m,precipitation_probability&daily=weather_code,temperature_2m_max,sunrise,sunset&timezone=auto`)).json();
     if (!d || !d.current || !d.hourly) return;
     $('locText').textContent=place;
     if (typeof d.elevation==='number'){ elev=d.elevation; if (gpsAlt==null) $('altVal').textContent=Math.round(elev); }
@@ -2044,7 +1890,7 @@ async function fetchWeather(lat,lon,place){
     $('mainTemp').textContent=Math.round(d.current.temperature_2m); $('mainCond').textContent=info.label;
     $('windText').textContent=d.current.wind_speed_10m.toFixed(1)+' km/sa';
     $('humText').textContent='%'+Math.round(d.current.relative_humidity_2m);
-    setArt(info.type,d.current.is_day===0); setFxWeather(info.type,d.current.is_day===0,d.current.wind_speed_10m,d.current.wind_direction_10m,(d.daily.sunrise||[])[0],(d.daily.sunset||[])[0],d.current.time);
+    setArt(info.type,d.current.is_day===0);
     setHourly(d);
   }catch{}
 }
@@ -2230,9 +2076,9 @@ $('mp3Input').addEventListener('change',e=>{
   select(0,true);
 });
 
-/* ---------- EKOLAYZIR (alçak, saat/tarih tema renginde) ---------- */
+/* ---------- EKOLAYZIR (saat ve tarihle aynı renk) ---------- */
 const eq=$('eq'), ectx=eq.getContext('2d'), NB=96, bars=new Float32Array(NB); let eqRaf=null;
-const EQ_MAX = 0.62;
+const EQ_MAX = 0.7;
 function eqSize(){ const dp=window.devicePixelRatio||1; eq.width=Math.max(1,eq.clientWidth*dp); eq.height=Math.max(1,eq.clientHeight*dp); }
 let eqLast=0;
 function eqFrame(ts){
@@ -2240,6 +2086,7 @@ function eqFrame(ts){
   eqLast=ts;
   const w=eq.width, h=eq.height, t=ts/1000, dp=window.devicePixelRatio||1;
   const bw=Math.max(1,Math.round(Math.max(1.5*dp,(w/NB)*0.34))), step=(w-bw)/(NB-1);
+  const cl=TH.clk;
   let mx=0;
   ectx.clearRect(0,0,w,h);
   ectx.lineCap='butt';
@@ -2255,7 +2102,7 @@ function eqFrame(ts){
     mx=Math.max(mx,bars[i]);
     const bh=Math.round(Math.max(2*dp, bars[i]*(h - 2*dp)));
     const x=Math.round(i*step)+bw/2;
-    ectx.strokeStyle=bars[i]<0.08 ? `rgba(${TH.clk},.38)` : `rgba(${TH.clk},.88)`;
+    ectx.strokeStyle=bars[i]<0.08 ? `rgba(${cl},.38)` : `rgba(${cl},.9)`;
     ectx.beginPath();
     ectx.moveTo(x, h);
     ectx.lineTo(x, h - bh);
@@ -2330,7 +2177,7 @@ document.querySelector('.date-wrap').addEventListener('click',()=>{
 addEventListener('resize',applyLayout); addEventListener('orientationchange',()=>setTimeout(applyLayout,150));
 /* Ekrana (kontroller dışında) dokununca radyo kanalı değişir — yoldan gözünü ayırmadan */
 document.addEventListener('click', e => {
-  if (e.target.closest('.loc,.nav-btn,.nav-hud,.date-wrap,.clock,.compass,.zoom-hit,.modal,.dock,.toast,.wx-mini,.cond,#restBox,#fxPrev')) return;
+  if (e.target.closest('.loc,.nav-btn,.nav-hud,.date-wrap,.clock,.compass,.zoom-hit,.modal,.dock,.toast,.wx-mini,#restBox')) return;
   nextSong();
   toast(tracks[ti].artist);
 });
