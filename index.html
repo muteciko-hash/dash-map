@@ -441,7 +441,6 @@ function wx(code){
   if ([96,99].includes(code)) return {label:"Fırtına ve sağanak", type:"tstorm"};
   return {label:"Bulutlu", type:"cloud"};
 }
-
 /* ---------- HARİTA (kuşbakışı, çevrimdışı destekli) ---------- */
 const roadCv = $('roadCanvas'), rctx = roadCv.getContext('2d');
 const DPR = Math.min(3, window.devicePixelRatio || 1);
@@ -1433,7 +1432,6 @@ function drawRoadMap(){
   rctx.fill();
   rctx.restore();
 }
-
 /* ---------- RENK TEMALARI (saate dokun) ---------- */
 const THEMES = {
   red:   { n:'Kırmızı',    acc:[229,72,77],   core:[255,112,96],  far:[200,50,90],   arrow:[240,138,69], play:[217,119,36], clk:[245,245,247] },
